@@ -57,6 +57,9 @@ export default {
         })}).then(response => response.json())
   .then(data => {localStorage.setItem("token", data.token);
         this.$store.dispatch("user", data.user);});
+		
+        localStorage.setItem("token", response.data.token);
+        this.$store.dispatch("user", response.data.user);
         this.$router.push("/");
       } catch (e) {console.log(e)
         this.error = 'Email ou mot de passe invalide!';
