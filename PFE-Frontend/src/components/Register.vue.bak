@@ -76,7 +76,8 @@ export default {
           firstname: this.Prénom,
           lastname: this.Nom,
           email: this.email,
-          password: this.password,	moderator:'False',
+          password: this.password,
+		  moderator:'False',
         })
 		});
         this.$router.push("/login");

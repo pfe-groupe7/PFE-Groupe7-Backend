@@ -1,26 +1,34 @@
-# from rest_framework import status
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from django.http import HttpResponse
 from django.core import serializers
 import json
-from testo.models import User
+from PFE.models import User
 
 
 def login(request) :
-   print(request)
-   response_data="test-login"   
-   res=json.dumps(serializers.serialize("json",User.objects.filter(email="test1@vinci.be")))
-   return HttpResponse(res, content_type="application/json")
+    j=json.loads(request.body.decode())
+    u=User(**j)
+    res=User.objects.filter(email=u.email)
+    if(res.count()!=0):
+         return HttpResponse(content=json.dumps({"token":"test","user":{"firstname":res.first().firstname,"lastname":res.first().lastname}}), content_type="application/json")
+ 
+    else:
+         return HttpResponse(status=404) 
 
 
 def register(request):
-    print(request.body.decode())
-    
-    u= User(firstname="test-firstname",lastname="lastname",email="test1@vinci.be",moderator=True,password="123")
-    u.save()
-    response_data="test-register" 
-    return HttpResponse(json.dumps(response_data), content_type="application/json")    
+    j=json.loads(request.body.decode())
+    u=User(**j)
+    print(u)
+    try:
+        u.save()
+        response_data="test-register" 
+        return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
+    except:
+        return HttpResponse(status=409) 
+     
 
 
 
