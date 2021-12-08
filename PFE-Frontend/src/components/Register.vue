@@ -51,6 +51,9 @@
 
 
 <script>
+import {//DevURL,
+PordURL
+} from '../config';
 import Error from "./Error.vue";
 export default {
   name: "Register",
@@ -70,7 +73,7 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        await fetch("http://localhost:8000/register",{
+        await fetch(PordURL+"register",{
 		method: 'POST',	
 		body:JSON.stringify({
           firstname: this.Prénom,
