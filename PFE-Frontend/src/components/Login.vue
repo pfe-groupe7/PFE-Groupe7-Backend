@@ -33,7 +33,9 @@
 
 <script>
 import Error from './Error.vue';
-
+import {//DevURL,
+PordURL
+} from '../config';
 export default {
   name: 'Login',
   components: {
@@ -49,7 +51,7 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-		await fetch("http://localhost:8000/login",{
+		await fetch(PordURL+"login",{
 		method: 'POST',	
 		body:JSON.stringify({
           email: this.email,

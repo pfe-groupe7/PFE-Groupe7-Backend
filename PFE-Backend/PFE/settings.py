@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from PFE.config import prod,dev
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,26 +80,8 @@ WSGI_APPLICATION = 'PFE.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+DATABASES=prod
 
-DATABASES = {
-
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'deb5micsa92av9',
-
-        'USER': 'vyhbzhoeqpbnvn',
-
-        'PASSWORD': '5377b6f1814f04d6781abe364a0210e66059dcd1b6397a89dc667af2f3b2f6a3',
-
-        'HOST': 'ec2-34-254-120-2.eu-west-1.compute.amazonaws.com',
-
-        'PORT': '5432',
-
-    }
-
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
