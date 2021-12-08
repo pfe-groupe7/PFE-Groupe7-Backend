@@ -1,37 +1,58 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <error v-if="error" :error="error" />
-
-  <div class="login-wrap p-3 md-5">
-    <div class="d-flex">
-      <div class="w-100">
-        <h3>S'inscrire</h3>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <input type="text" class="form-control" required="" v-model="Prénom" placeholder="Prénom"/>
-  </div>
-
-  <div class="form-group mt-3">
-    <input type="text" class="form-control" required="" v-model="Nom" placeholder="Nom" />
-  </div>
-  <div class="form-group mt-3">
-      <input type="email" class="form-control" v-model="email" placeholder="Email" />
-  </div>
-    <div class="form-group mt-3">
-      <input type="email" class="form-control" v-model="Password" placeholder="Mot de passe" />
-      <span toggle="#password-field" class="fa fa-fw field-icon toggle-password fa-eye"></span>
-
-    </div>
-   <div class="form-group mt-3">
-      <input type="email" class="form-control" v-model="Confirm_Password" placeholder="Confirmez votre mot de passe" />
-  </div>
-   <div class="form-group mt-4">
-    <button type="submit" class="form-control btn btn-primary rounded submit px-3">S'inscrire</button>
-  </div>
-  </form>
+ 	<div class="section">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Log In</h4>
+											<div class="form-group">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+												<i class="input-icon uil uil-lock-alt"></i>
+											</div>
+											<a href="#" class="btn mt-4">submit</a>
+                            				<p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
+				      					</div>
+			      					</div>
+			      				</div>
+								<div class="card-back">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Sign Up</h4>
+											<div class="form-group">
+												<input type="text" name="logname" class="form-style" placeholder="Your Full Name" id="logname" autocomplete="off">
+												<i class="input-icon uil uil-user"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+												<i class="input-icon uil uil-lock-alt"></i>
+											</div>
+											<a href="#" class="btn mt-4">submit</a>
+				      					</div>
+			      					</div>
+			      				</div>
+			      			</div>
+			      		</div>
+			      	</div>
+		      	</div>
+	      	</div>
+	    </div>
+	</div>
 </template>
 
 
@@ -44,11 +65,11 @@ export default {
   },
   data() {
     return {
-      Prénom: "",
-      Nom: "",
+      prenom: "",
+      nom: "",
       email: "",
       password: "",
-      Confirm_Password: "",
+      confirmPassword: "",
       error: "",
     };
   },
@@ -58,8 +79,8 @@ export default {
         await fetch("http://localhost:8000/register",{
 		method: 'POST',	
 		body:JSON.stringify({
-          firstname: this.Prénom,
-          lastname: this.Nom,
+          firstname: this.prenom,
+          lastname: this.nom,
           email: this.email,
           password: this.password,	moderator:'False',
         })
