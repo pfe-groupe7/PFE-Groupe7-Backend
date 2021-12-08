@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from PFE import views
 urlpatterns = [
-
+    path('',views.Hello),
     path('login', views.login),
     path('register', views.register)
 ]

@@ -30,6 +30,8 @@ def register(request):
         return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
     except:
         return HttpResponse(status=409) 
+def Hello(request):
+    return HttpResponse("Welcome Backend")    
      
 
 
