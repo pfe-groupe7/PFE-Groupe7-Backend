@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from django.core import serializers
 import json
@@ -11,8 +12,9 @@ def login(request) :
     j=json.loads(request.body.decode())
     u=User(**j)
     res=User.objects.filter(email=u.email)
+    token = Token.objects.create(user=res.first().firstname)
     if(res.count()!=0):
-         return HttpResponse(content=json.dumps({"token":"test","user":{"firstname":res.first().firstname,"lastname":res.first().lastname}}), content_type="application/json")
+         return HttpResponse(content=json.dumps({"token":token,"user":{"firstname":res.first().firstname,"lastname":res.first().lastname}}), content_type="application/json")
  
     else:
          return HttpResponse(status=404) 
