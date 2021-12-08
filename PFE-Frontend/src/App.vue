@@ -35,7 +35,6 @@ export default {
   box-sizing: border-box;
 }
 body {
-  background: #1c8ef9 !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -66,7 +65,7 @@ html,
 }
 
 .navbar-light {
-  background-color: #ffffff;
+  background-color: #3A5749;
   box-shadow: 0px 14px 80 px rgba(34, 35, 58, 0.2);
 }
 .auth-wrapper {
@@ -76,16 +75,13 @@ html,
   text-align: left;
 }
 .auth-inner {
-  width: 450px;
+  width: 600px;
   margin: auto;
   background: #ffffff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-  padding: 40px 55px 45px 55px;
+  padding: 40px 55px 0 55px;
 }
-.auth-wrapper .form-control:focus {
-  border-color: #167bff;
-  box-shadow: none;
-}
+
 .auth-wrapper h3 {
   text-align: center;
   margin: 0;

@@ -4,11 +4,9 @@
       <router-link to="/" class="navbar-brand">Home</router-link>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto" v-if="!user">
+    
           <li class="nav-item">
-            <router-link to="/login" class="nav-link">Connecter</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/register" class="nav-link">S'inscrire</router-link>
+            <router-link to="/register" class="nav-link">Connexion</router-link>
           </li>
         </ul>
            <ul class="navbar-nav ml-auto" v-if="user">
