@@ -5,48 +5,46 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from django.core import serializers
 import json
-from PFE.models import User
+from PFE.models import User, Ad
 
 
-def login(request) :
-    j=json.loads(request.body.decode())
-    u=User(**j)
-    res=User.objects.filter(email=u.email)
-    token =Token.generate_key()# Token.objects.create(user=res.first().firstname)
-    if(res.count()!=0):
-         return HttpResponse(content=json.dumps({"token":token,"user":{"firstname":res.first().firstname,"lastname":res.first().lastname}}), content_type="application/json")
- 
+def login(request):
+    j = json.loads(request.body.decode())
+    u = User(**j)
+    res = User.objects.filter(email=u.email)
+    token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
+    if(res.count() != 0):
+        return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname}}), content_type="application/json")
+
     else:
-         return HttpResponse(status=404) 
+        return HttpResponse(status=404)
 
 
 def register(request):
-    j=json.loads(request.body.decode())
-    u=User(**j)
+    j = json.loads(request.body.decode())
+    u = User(**j)
     print(u)
     try:
         u.save()
-        response_data="test-register" 
-        return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
+        response_data = "test-register"
+        return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
     except:
-        return HttpResponse(status=409) 
+        return HttpResponse(status=409)
+
+# Test function
+
+
 def Hello(request):
-    return HttpResponse("Welcome Backend")    
-     
+    return HttpResponse("Welcome Backend")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+def createAd(request):
+    j = json.loads(request.body.decode())
+    ad = Ad(**j)
+    print(ad)
+    try:
+        ad.save()
+        response_data = 'test-creaetAd'
+        return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
+    except:
+        return HttpResponse(status=500)
