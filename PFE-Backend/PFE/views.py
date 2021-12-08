@@ -12,7 +12,7 @@ def login(request) :
     j=json.loads(request.body.decode())
     u=User(**j)
     res=User.objects.filter(email=u.email)
-    token = Token.objects.create(user=res.first().firstname)
+    token =Token.generate_key()# Token.objects.create(user=res.first().firstname)
     if(res.count()!=0):
          return HttpResponse(content=json.dumps({"token":token,"user":{"firstname":res.first().firstname,"lastname":res.first().lastname}}), content_type="application/json")
  
@@ -30,6 +30,8 @@ def register(request):
         return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
     except:
         return HttpResponse(status=409) 
+def Hello(request):
+    return HttpResponse("Welcome Backend")    
      
 
 

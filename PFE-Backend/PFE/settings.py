@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -86,15 +86,15 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'postgres',
+        'NAME': 'deb5micsa92av9',
 
-        'USER': 'postgres',
+        'USER': 'vyhbzhoeqpbnvn',
 
-        'PASSWORD': 'azerty',
+        'PASSWORD': '5377b6f1814f04d6781abe364a0210e66059dcd1b6397a89dc667af2f3b2f6a3',
 
-        'HOST': 'localhost',
+        'HOST': 'ec2-34-254-120-2.eu-west-1.compute.amazonaws.com',
 
-        'PORT': '5433',
+        'PORT': '5432',
 
     }
 
@@ -137,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT=os.path.join(BASE_DIR,"staticfiles")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
