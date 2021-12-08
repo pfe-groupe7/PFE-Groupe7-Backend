@@ -6,7 +6,7 @@
         <ul class="navbar-nav ml-auto" v-if="!user">
     
           <li class="nav-item">
-            <router-link to="/register" class="nav-link">Connexion</router-link>
+            <router-link to="/login" class="nav-link">Connexion</router-link>
           </li>
         </ul>
            <ul class="navbar-nav ml-auto" v-if="user">

@@ -50,7 +50,7 @@ h6 span {
   position: relative;
   display: block;
   text-align: center;
-  width: 60px;
+  width: 80px;
   height: 16px;
   border-radius: 8px;
   padding: 0;
@@ -67,8 +67,8 @@ h6 span {
   border-radius: 50%;
   color: #ffeba7;
   background-color: #3a5749;
-  font-family: "unicons";
-  content: "\eb4f";
+  font-family: FontAwesome;
+  content: "\f25a";
   z-index: 20;
   top: -10px;
   left: -10px;
@@ -78,7 +78,7 @@ h6 span {
   transition: all 0.5s ease;
 }
 .checkbox:checked + label:before {
-  transform: translateX(44px) rotate(-360deg);
+  transform: translateX(60px) rotate(-360deg);
 }
 
 .card-3d-wrap {
@@ -110,7 +110,7 @@ h6 span {
   background-repeat: no-repeat;
   background-size: 300%;
   position: absolute;
-  border-radius: 35px;
+  border-radius: 50px;
   left: 0;
   top: 0;
   -webkit-transform-style: preserve-3d;

@@ -12,17 +12,17 @@
             <div class="card-front">
             <div class="center-wrap">
             <div class="section text-center">
-            <h4 class="mb-4 pb-3">Connexion</h4>
+            <h4 class="mb-4 pb-4">Connexion</h4>
             <div class="form-group">
-              <input type="email" name="email" class="form-style" placeholder="Adresse e-mail" id="logemail" >
+              <input type="email" name="email" class="form-style" placeholder="Adresse e-mail" id="email" >
               <i class="input-icon fa fa-envelope"></i>
             </div>	
             <div class="form-group mt-4">
-              <input type="password" name="password" class="form-style" placeholder="Mot de passe" id="logpass" >
+              <input type="password" name="password" class="form-style" placeholder="Mot de passe" id="password" >
               <i class="input-icon fa fa-lock"></i>
             </div>
-            <div class="form-group mt-3"> <a href="#" class="btn mt-4">Envoyer</a> </div>
-            <p class="mb-5 mt-4 text-center"> <a class="link" href="forgot">Mot de passe oublié?</a></p>
+            <div class="form-group mt-4"> <a href="#" class="btn mt-3">Envoyer</a> </div>
+            <p class="mb-5 mt-5 text-center"> <a class="link" href="forgot">Mot de passe oublié?</a></p>
         </div>
       </div>
     </div>
@@ -32,24 +32,24 @@
           <div class="section text-center">
             <h4 class="mb-4 pb-3">Inscription</h4>
               <div class="form-group ">
-                <input type="text" name="logname" class="form-style" placeholder="Nom" id="logname">
+                <input type="text" name="nom" class="form-style" placeholder="Nom" id="nom">
               <i class="input-icon fa fa-user" ></i>
               </div>	
               <div class="form-group mt-3">
-                <input type="text" name="logemail" class="form-style" placeholder="Prénom" id="logemail" >
+                <input type="text" name="prenom" class="form-style" placeholder="Prénom" id="prenom" >
               <i class="input-icon fa fa-user" ></i>
               </div>	
 
             <div class="form-group mt-3">
-              <input type="email" name="logpass" class="form-style" placeholder="Adresse e-mail" id="logpass" >
+              <input type="email" name="email" class="form-style" placeholder="Adresse e-mail" id="email" >
               <i class="input-icon fa fa-envelope"></i>
             </div>
             <div class="form-group mt-3">
-              <input type="password" name="logpass" class="form-style" placeholder="Mot de passe" id="logpass" >
+              <input type="password" name="password" class="form-style" placeholder="Mot de passe" id="password" >
               <i class="input-icon fa fa-lock"></i>
             </div>
             <div class="form-group mt-3">
-              <select id="inputCampus" class="form-style">
+              <select name="campus" id="campus" class="form-style">
                 <option value="" disabled selected>Sélectionne ton campus</option>
                 <option value="0">Woluwe</option>
                 <option value="1">Ixelles</option>
@@ -74,7 +74,7 @@
 
 <script>
 export default {
-  name: "Register",
+  name: "Login",
   components: {
     
   },
@@ -84,20 +84,22 @@ export default {
       nom: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      campus: "",
       error: "",
     };
   },
   methods: {
     async handleSubmit() {
       try {
-        await fetch("http://localhost:8000/register",{
+        await fetch("http://localhost:8000/login",{
 		method: 'POST',	
 		body:JSON.stringify({
           firstname: this.prenom,
           lastname: this.nom,
           email: this.email,
-          password: this.password,	moderator:'False',
+          password: this.password,
+          campus: this.campus,
+          moderator:'False',
         })
 		});
         this.$router.push("/login");
