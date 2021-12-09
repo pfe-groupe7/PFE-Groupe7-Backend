@@ -24,8 +24,7 @@ jobs:
       - run: 
           name: "install pytest"
           
-          command: python -m pip install pytest & pip install -r  ~/project/PFE-Backend/requirements.txt &&
-                  sudo apt install gunicorn # python -m pip install pytest
+          command: python -m pip install pytest && pip install -r requirements.txt# python -m pip install pytest
       - run: 
           name: "Test"
           
