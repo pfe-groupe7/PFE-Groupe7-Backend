@@ -23,8 +23,8 @@ jobs:
       - run: 
           name: "Test"
           
-          command: python -m pip install pytest
-                   pytest test.py
+          command: pytest test.py # python -m pip install pytest
+                   
 
   build-backend:
     working_directory: ~/PFE-Backend
