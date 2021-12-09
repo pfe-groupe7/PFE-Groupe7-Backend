@@ -1,6 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
 body {
-  font-family: "Bangers", cursive;
   font-weight: 300;
   font-size: 15px;
   line-height: 1.7;
@@ -27,10 +25,12 @@ p {
   line-height: 1.7;
 }
 h4 {
-  font-weight: 600;
+  font-weight: 900;
+  font-size: 30px;
 }
 h6 span {
   padding: 0 20px;
+  color: #3a5749;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -51,7 +51,7 @@ h6 span {
   display: block;
   text-align: center;
   width: 80px;
-  height: 16px;
+  height: 20px;
   border-radius: 8px;
   padding: 0;
   margin: 10px auto;
@@ -78,7 +78,7 @@ h6 span {
   transition: all 0.5s ease;
 }
 .checkbox:checked + label:before {
-  transform: translateX(60px) rotate(-360deg);
+  transform: translateX(70px) rotate(-360deg);
 }
 
 .card-3d-wrap {

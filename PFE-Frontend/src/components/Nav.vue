@@ -1,10 +1,22 @@
 <template>
-  <nav class="navbar navbar-expand navbar fixed-top">
-    <div class="container">
-      <router-link to="/" class="navbar-brand">Home</router-link>
-      <div class="collapse navbar-collapse">
+<div class="main">
+  <nav id="navbar" class="navbar navbar">
+    <a class="navbar-brand" href="/">
+      <img src="../assets/images/vincilogo.png" height="100" alt="vinci market logo">
+    </a>
+      
+      <form class="form-inline">
+        <div class="flexbox">
+          <div class="search">
+            <div>
+              <input type="text" placeholder="Recherche...">
+            </div>
+          </div>
+        </div>
+      </form>
+        
         <ul class="navbar-nav ml-auto" v-if="!user">
-    
+         
           <li class="nav-item">
             <router-link to="/login" class="nav-link">Connexion</router-link>
           </li>
@@ -14,9 +26,8 @@
             <a href="javascript:void(0)" @click="handleClick" class="nav-link">Déconnecter</a>
           </li>
         </ul>
-      </div>
-    </div>
   </nav>
+</div>
 </template>
 
 <script>
@@ -36,3 +47,4 @@ export default {
   
 }
 </script>
+<style scoped src="../assets/css/navbar.css"></style>
