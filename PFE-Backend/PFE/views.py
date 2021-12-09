@@ -31,16 +31,18 @@ def register(request):
     except:
         return HttpResponse(status=409)
 
+
 # Test function
-
-
 def Hello(request):
     return HttpResponse("Welcome Backend")
+
+# To extract
 
 
 def createAd(request):
     j = json.loads(request.body.decode())
     ad = Ad(**j)
+    ad.state = ad.State.PENDING
     print(ad)
     try:
         ad.save()
