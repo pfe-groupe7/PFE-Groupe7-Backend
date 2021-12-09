@@ -21,9 +21,13 @@ jobs:
     steps:
       - checkout
       - run: 
+          name: "install pytest"
+          
+          command: python -m pip install pytest # python -m pip install pytest
+      - run: 
           name: "Test"
           
-          command: pytest test.py # python -m pip install pytest
+          command: pytest test.py # 
                    
 
   build-backend:
