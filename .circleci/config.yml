@@ -21,10 +21,15 @@ jobs:
     steps:
       - checkout
       - run: 
+          name: "install pytest"
+          
+          command: python -m pip install pytest # python -m pip install pytest
+      - run: 
           name: "Test"
           
-          command: python -m pip install pytest
-                   pytest test.py
+          command:  pytest  ~/project/PFE-Backend/test.py
+            
+                   
 
   build-backend:
     working_directory: ~/PFE-Backend
@@ -52,13 +57,6 @@ jobs:
           #name: Run tests
           # This assumes pytest is installed via the install-package step above
           #command: pytest        
-  build-frontend:
-    working_directory: ~/PFE-Frontend
-    docker: 
-      - image: circleci/node:8.11.2
-    steps:
-      - checkout
-
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -71,4 +69,3 @@ workflows:
       -  build-backend:
           requires :
              - tests 
-      -  build-frontend
