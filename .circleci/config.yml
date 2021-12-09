@@ -24,7 +24,7 @@ jobs:
       - run: 
           name: "install pytest"
           
-          command: python -m pip install pytest # python -m pip install pytest
+          command: python -m pip install pytest && pip install -r  ~/project/PFE-Backend/requirements.txt # python -m pip install pytest
       - run: 
           name: "Test"
           
@@ -50,7 +50,7 @@ jobs:
     # CircleCI will report the results back to your VCS provider.
     steps:
       - checkout
-      
+
       - run:
          name: deploy 
          command : gunicorn PFE.wsgi
