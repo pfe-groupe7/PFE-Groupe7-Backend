@@ -1,10 +1,19 @@
 <template>
 <div class="main">
-  <nav id="navbar" class="navbar navbar">
+  <nav id="navbar" class="navbar ">
     <a class="navbar-brand" href="/">
       <img src="../assets/images/vincilogo.png" height="100" alt="vinci market logo">
     </a>
-      
+      <div class="nav-item dropdown">
+          <a class="btn mt-3 nav-link dropdown-toggle" data-toggle="dropdown">Catégories</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Maison et jardin</a>
+            <a href="#" class="dropdown-item"> Famille</a>
+            <a href="#" class="dropdown-item">Vêtements et accessoires</a>
+            <a href="#" class="dropdown-item">Loisirs et hobbys</a>
+            <a href="#" class="dropdown-item">Electronique</a>
+          </div>
+			</div>
       <form class="form-inline">
         <div class="flexbox">
           <div class="search">
@@ -14,11 +23,12 @@
           </div>
         </div>
       </form>
-        
+        <a class="btn mt-3">
+         Publier une annonce &nbsp; <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+
         <ul class="navbar-nav ml-auto" v-if="!user">
-         
           <li class="nav-item">
-            <router-link to="/login" class="nav-link">Connexion</router-link>
+            <router-link to="/login" class="nav-link"><i id="userIcon" class="fa fa-user-circle" aria-hidden="true"></i></router-link>
           </li>
         </ul>
            <ul class="navbar-nav ml-auto" v-if="user">
