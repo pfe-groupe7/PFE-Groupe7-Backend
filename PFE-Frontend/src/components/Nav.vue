@@ -5,7 +5,7 @@
       <img src="../assets/images/vincilogo.png" height="100" alt="vinci market logo">
     </a>
       <div class="nav-item dropdown">
-          <a class="btn mt-3 nav-link dropdown-toggle" data-toggle="dropdown">Catégories</a>
+          <a class="btn mt-1 nav-link dropdown-toggle" data-toggle="dropdown">Catégories</a>
           <div class="dropdown-menu">
             <a href="#" class="dropdown-item">Maison et jardin</a>
             <a href="#" class="dropdown-item"> Famille</a>
@@ -23,7 +23,7 @@
           </div>
         </div>
       </form>
-        <a class="btn mt-3">
+        <a class="btn mt-1">
          Publier une annonce &nbsp; <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
 
         <ul class="navbar-nav ml-auto" v-if="!user">
