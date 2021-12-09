@@ -1,5 +1,4 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
@@ -10,8 +9,8 @@ from PFE.models import User
 
 def login(request) :
     j=json.loads(request.body.decode())
-    u=User(**j)
-    res=User.objects.filter(email=u.email)
+    user=User(**j)
+    res=User.objects.filter(email=user.email)
     token =Token.generate_key()# Token.objects.create(user=res.first().firstname)
     if(res.count()!=0):
          return HttpResponse(content=json.dumps({"token":token,"user":{"firstname":res.first().firstname,"lastname":res.first().lastname}}), content_type="application/json")
@@ -22,11 +21,11 @@ def login(request) :
 
 def register(request):
     j=json.loads(request.body.decode())
-    u=User(**j)
-    res=User.objects.filter(email=u.email).update()
-    print(u)
+    user=User(**j)
+    res=User.objects.filter(email=user.email).update()
+    print(user)
     try:
-        u.save()
+        user.save()
         response_data="Utilisateur bien ajouté" 
         return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
     except:
@@ -34,10 +33,10 @@ def register(request):
         
 def update(request):
     # j=json.loads(request.body.decode())
-    u=User()
-    print(type(u))
+    user=User()
+    print(type(user))
     try:
-        u.save()
+        user.save()
         response_data="Votre profil a été bien modifié" 
         return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
     except:
