@@ -27,7 +27,7 @@ jobs:
       - run: 
           name: "Test"
           
-          command:  ls  ~/project
+          command:  ls  ~/project/PFE-Backend
             # pytest ~/../PFE-Backend/test.py # 
                    
 
