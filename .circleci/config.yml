@@ -27,7 +27,7 @@ jobs:
       - run: 
           name: "Test"
           
-          command: cat ls  ~
+          command:  ls  ~
             # pytest ~/../PFE-Backend/test.py # 
                    
 
