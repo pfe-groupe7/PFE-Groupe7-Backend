@@ -1,1 +1,1 @@
-web: gunicorn PFE.wsgi
+#web: gunicorn PFE.wsgi
