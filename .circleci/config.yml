@@ -14,6 +14,18 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+  tests:
+    docker:
+      - image: circleci/python@1.2
+
+    steps:
+      - checkout
+
+      - run:
+          name: "Test"
+          command: python -m pip install pytest
+                   pytest test.py
+
   build-backend:
     working_directory: ~/PFE-Backend
    
@@ -39,7 +51,7 @@ jobs:
      # - run:
           #name: Run tests
           # This assumes pytest is installed via the install-package step above
-          #command: pytest  
+          #command: pytest        
   build-frontend:
     working_directory: ~/PFE-Frontend
     docker: 
@@ -53,6 +65,10 @@ jobs:
 workflows:
   all: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
+    
     jobs:
-      -  build-backend
+      - tests 
+      -  build-backend:
+          requires :
+             - tests 
       -  build-frontend
