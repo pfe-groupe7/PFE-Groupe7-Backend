@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from django.core import serializers
 import json
-from PFE.models import User, Ad
+from PFE.models import User
 
 
 def login(request):
@@ -35,18 +35,3 @@ def register(request):
 # Test function
 def Hello(request):
     return HttpResponse("Welcome Backend")
-
-# To extract
-
-
-def createAd(request):
-    j = json.loads(request.body.decode())
-    ad = Ad(**j)
-    ad.state = ad.State.PENDING
-    print(ad)
-    try:
-        ad.save()
-        response_data = 'test-creaetAd'
-        return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
-    except:
-        return HttpResponse(status=500)

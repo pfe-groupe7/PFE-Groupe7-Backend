@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from PFE import views
+from PFE import views, include
 urlpatterns = [
-    path('',views.Hello),
+    path('', views.Hello),
     path('login', views.login),
     path('register', views.register),
-    path('createAd',views.createAd)
+    path('Ad', include('Ad.urls'))
 ]
