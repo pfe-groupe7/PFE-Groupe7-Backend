@@ -21,7 +21,7 @@ jobs:
     steps:
       - checkout
 
-      - run:
+      - run: 
           name: "Test"
           command: python -m pip install pytest
                    pytest test.py
