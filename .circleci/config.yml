@@ -27,7 +27,7 @@ jobs:
       - run: 
           name: "Test"
           
-          command: pytest test.py # 
+          command: pytest ../test.py # 
                    
 
   build-backend:
