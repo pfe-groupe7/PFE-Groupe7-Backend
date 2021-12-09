@@ -18,5 +18,5 @@ from django.urls import path
 from Ad import views
 
 urlpatterns = [
-    path('', views.createAd)
+    path('ad', views.createAd)
 ]
