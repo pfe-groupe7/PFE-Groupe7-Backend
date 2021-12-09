@@ -20,7 +20,6 @@ jobs:
 
     steps:
       - checkout
-
       - run: 
           name: "Test"
           command: python -m pip install pytest
