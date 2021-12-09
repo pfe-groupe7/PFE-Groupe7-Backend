@@ -19,5 +19,6 @@ from PFE import views
 urlpatterns = [
     path('',views.Hello),
     path('login', views.login),
-    path('register', views.register)
+    path('register', views.register),
+    path('update',views.update),
 ]

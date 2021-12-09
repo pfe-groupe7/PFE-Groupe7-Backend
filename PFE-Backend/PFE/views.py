@@ -23,13 +23,26 @@ def login(request) :
 def register(request):
     j=json.loads(request.body.decode())
     u=User(**j)
+    res=User.objects.filter(email=u.email).update()
     print(u)
     try:
         u.save()
-        response_data="test-register" 
+        response_data="Utilisateur bien ajouté" 
         return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
     except:
         return HttpResponse(status=409) 
+        
+def update(request):
+    # j=json.loads(request.body.decode())
+    u=User()
+    print(type(u))
+    try:
+        u.save()
+        response_data="Votre profil a été bien modifié" 
+        return HttpResponse(json.dumps(response_data), content_type="application/json",status=200)   
+    except:
+        return HttpResponse(status=409) 
+
 def Hello(request):
     return HttpResponse("Welcome Backend")    
      
