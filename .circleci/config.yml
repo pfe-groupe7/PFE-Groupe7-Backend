@@ -50,6 +50,7 @@ jobs:
     # CircleCI will report the results back to your VCS provider.
     steps:
       - checkout
+      
       - run:
          name: deploy 
          command : gunicorn PFE.wsgi
