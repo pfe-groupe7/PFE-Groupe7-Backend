@@ -15,7 +15,7 @@ def createAd(request):
     j = json.loads(request.body.decode())
     ad = Ad(**j)
     # default status is pending.
-    print(ad)
+    print(ad.status)
     try:
         ad.save()
         response_data = 'Ad added '+ad.title
