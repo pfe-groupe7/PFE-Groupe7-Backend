@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from django.http import HttpResponse
+from django.http import HttpResponse, response
 from django.core import serializers
 import json
 from PFE.models import Ad
@@ -23,12 +23,29 @@ def createAd(request):
         return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
     except:
         return HttpResponse(status=500)
-"""
-def editAd(request):
-    j = json.loads(request.body.decode())
-    newAd = Ad(**j)
-    newAd.
-"""
+
+#Assume that every updatable fields must be filled in frontend
+def editAd(request,id):
+    try:
+      print(id)
+      newData = json.loads(request.body.decode())
+      if newData['title']!='':
+         Ad.objects.filter(pk=id).update(title=newData['title'])
+      if newData['status']!='':  
+         Ad.objects.filter(pk=id).update(status=newData['status'])
+      if newData['state']!='':  
+         Ad.objects.filter(pk=id).update(state=newData['state'])  
+      if newData['description']!='':
+          Ad.objects.filter(pk=id).update(description=newData['description'])
+      if newData['price']!='':
+          Ad.objects.filter(pk=id).update(price=newData['price'])  
+          
+      print('updated')
+      response_data = 'data updated'
+      return HttpResponse(json.dumps(response_data),content_type='application/json',status=200)
+    except:
+        return HttpResponse(status=500)    
+
 
 def getAllAds(request):
     try:
