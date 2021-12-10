@@ -18,5 +18,9 @@ from django.urls import path
 from Ad import views
 
 urlpatterns = [
-    path('ad', views.createAd)
+    path('ad', views.createAd),
+    #path('ad',views.editAd),
+    path('ads',views.getAllAds),
+    path('ad/<int:id>',views.getAdById),
+    path('ad/update/<int:id>',views.editAd)
 ]

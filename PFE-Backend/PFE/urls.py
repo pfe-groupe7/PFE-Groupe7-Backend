@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.Hello),
     path('login', views.login),
     path('register', views.register),
+    path('insertTest',views.insertTestData),
     path('',include('Ad.urls'))
 
 ]
