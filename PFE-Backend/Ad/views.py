@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, response
 from django.core import serializers
 import json
-from PFE.models import Ad
+from Ad.models import Ad
 
 # Create your views here.
 
