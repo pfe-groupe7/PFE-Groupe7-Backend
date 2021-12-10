@@ -1,3 +1,4 @@
+from django.db.models.fields import IntegerField
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -22,3 +23,28 @@ def createAd(request):
         return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
     except:
         return HttpResponse(status=500)
+"""
+def editAd(request):
+    j = json.loads(request.body.decode())
+    newAd = Ad(**j)
+    newAd.
+"""
+
+def getAllAds(request):
+    try:
+        allAds =serializers.serialize('json', Ad.objects.all())
+        print(allAds)
+        return HttpResponse(allAds,content_type='applicatoin/json',status=200)
+    except:
+        return HttpResponse(status=500)
+
+def getAdById(request,id):
+    try:
+        print(id)
+        j = Ad.objects.get(pk=id)
+        ad  = serializers.serialize('json',[j],ensure_ascii=False)
+        print(ad)
+        return HttpResponse(ad,content_type='application/json',status=200)
+    except:
+        return HttpResponse(status=500)
+    

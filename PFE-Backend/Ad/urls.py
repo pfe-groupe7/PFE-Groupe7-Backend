@@ -18,5 +18,7 @@ from django.urls import path
 from Ad import views
 
 urlpatterns = [
-    path('ad', views.createAd)
+    path('ad', views.createAd),
+    path('ads',views.getAllAds),
+    path('ad/<int:id>',views.getAdById)
 ]
