@@ -1,6 +1,7 @@
 from enum import unique
 
 from django.db import models
+
 from django.db.models.base import Model, ModelState
 from django.db.models.constraints import UniqueConstraint
 from django.db.models.deletion import CASCADE
@@ -8,6 +9,7 @@ from django.db.models.deletion import CASCADE
 class Campus(models.Model):
     id = models.AutoField('campus_id',primary_key=True)
     campusName = models.CharField('campus_name',unique=True,max_length=64)
+
 
 
 class Location(models.Model):
@@ -36,6 +38,7 @@ class Media(models.Model):
     url = models.CharField('url',max_length=2048)
     ad = models.ForeignKey('ad',on_delete=models.CASCADE,default=1)
 
+
 class Category(models.Model):
     id = models.AutoField('category_id',primary_key=True)
     categoryName = models.CharField('category_name',max_length=64,unique=True)
@@ -51,7 +54,7 @@ class Ad(models.Model):
         PENDING = 'attendre validation'
         REJECTED = 'refusé'
         CLOSED = 'clôturé'
-
+        
     id = models.AutoField(primary_key=True)
     status = models.CharField(max_length=64, choices=Status.choices)
     title = models.CharField('title', max_length=200)
@@ -60,9 +63,6 @@ class Ad(models.Model):
         max_length=64, choices=State.choices, default=State.PENDING)
     price = models.IntegerField('price')
     seller = models.ForeignKey('user',on_delete=models.CASCADE,default=1)
-
-
-
 
 
 
