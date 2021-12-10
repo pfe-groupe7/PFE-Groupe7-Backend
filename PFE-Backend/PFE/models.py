@@ -1,6 +1,12 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 
+class Location(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField('name',max_length=256)
+    address = models.CharField('address',max_length=512)
+    campus = models.ForeignKey('campus',on_delete=CASCADE,default=1)
+
 
 class User(models.Model):
     id = models.AutoField("user_id",primary_key=True)
@@ -9,8 +15,11 @@ class User(models.Model):
     firstname = models.CharField('first_name', max_length=200)
     password = models.CharField('password', max_length=200)
 
-    moderator = models.BooleanField('is_moderator', max_length=200, default=False)
+    moderator = models.BooleanField('is_moderator', max_length=200)
     campus = models.ForeignKey('campus',on_delete=models.CASCADE,default=1)
+
+
+# Enums for Ad
 
 class Campus(models.Model):
     id = models.AutoField(primary_key=True)

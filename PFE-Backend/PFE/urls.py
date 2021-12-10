@@ -25,6 +25,7 @@ urlpatterns = [
     path('users/<int:id>',views.getUserById),
     path('users',views.getAllUsers),
     path('users/<int:id>/update', views.editUser),
+    path('insertTest',views.insertTestData),
     path('',include('Ad.urls'))
 
 ]
