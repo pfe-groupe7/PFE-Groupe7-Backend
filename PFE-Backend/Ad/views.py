@@ -1,4 +1,5 @@
 from django.db.models.fields import IntegerField
+from django.db.models.query_utils import PathInfo
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -7,7 +8,7 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, response
 from django.core import serializers
 import json
-from Ad.models import Ad
+from PFE.models import Ad, AdsCampus,Media
 
 # Create your views here.
 
@@ -65,3 +66,23 @@ def getAdById(request,id):
     except:
         return HttpResponse(status=500)
     
+def deleteAd(request,id):
+    try:
+        print('delete ad id:')
+        print(id)
+        
+        #first delete the media and adcampus associated to this ad
+        if Ad.objects.filter(pk=id):
+
+            Media.objects.filter(ad=id).delete()
+            print('media deleted')
+            AdsCampus.objects.filter(ad=id).delete()
+            print('adscampus deleted')
+            Ad.objects.filter(pk=id).delete()
+            response_data = 'ad deleted'
+            return HttpResponse(json.dumps(response_data),content_type='applicatoin/json',status=200)
+        else:
+             print('Ad not found')
+             return HttpResponse(status=404)
+    except:
+        return HttpResponse(status=500)

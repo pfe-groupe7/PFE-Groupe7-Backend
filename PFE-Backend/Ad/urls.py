@@ -19,8 +19,8 @@ from Ad import views
 
 urlpatterns = [
     path('ad', views.createAd),
-    #path('ad',views.editAd),
     path('ads',views.getAllAds),
-    path('ad/<int:id>',views.getAdById),
-    path('ad/update/<int:id>',views.editAd)
+    path('ads/<int:id>',views.getAdById),
+    path('ads/update/<int:id>',views.editAd),
+    path('ads/delete/<int:id>',views.deleteAd)
 ]

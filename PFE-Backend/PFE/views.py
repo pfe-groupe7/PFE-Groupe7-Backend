@@ -1,13 +1,12 @@
-from django.http.response import HttpResponsePermanentRedirect
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from django.core import serializers
-import json
+from Ad.views import deleteAd
 from PFE.models import User,Ad,Campus,Location,Media,Category,AdsCampus
-
+import json
 
 def login(request):
     j = json.loads(request.body.decode())
@@ -68,6 +67,33 @@ def editUser(request, id):
         return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
     except:
         return HttpResponse(status=500)
+
+def deleteUser(request, id):
+    try:
+        if User.objects.filter(pk=id):
+            print('delete user id')
+            print(id)
+            adsToDelete = Ad.objects.filter(seller=id).values_list()
+            adsIdList=[]
+            for index in range(adsToDelete.count()):
+                adsIdList.append(adsToDelete[index][0])
+
+            print(adsIdList)
+        
+
+            for index in range(len(adsIdList)):
+                print('ad id :')
+                deleteAd('http://127.0.0.1:8000/ads/delete/',adsIdList.pop())
+               
+            
+            User.objects.filter(pk=id).delete()
+            response_data = 'user deleted'
+            return HttpResponse(json.dumps(response_data),content_type='applicatoin/json',status=200)
+        else:
+             print('User not found')
+             return HttpResponse(status=404)
+    except:
+        return HttpResponse(status = 500)
 
 # Test function
 def Hello(request):
