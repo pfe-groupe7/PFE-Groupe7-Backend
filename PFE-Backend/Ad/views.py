@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, response
 from django.core import serializers
 import json
-from PFE.models import Ad, AdsCampus,Media
+from PFE.models import Ad, AdsCampus,Media,Category
 
 # Create your views here.
 
@@ -62,10 +62,13 @@ def getAllAds(request):
             medias="{"
             for a in allAds :
                 media=getMediaByAdId(a.id)
-                medias +=f'\"{a.id}\":'+serializers.serialize('json', media)+','
+                category=a.category
+                campus=AdsCampus.objects.filter(ad=a.id).first()
+                medias +=f'\"{a.id}\":'+serializers.serialize('json', media)+','#### add media foreach ad
+                medias+=f'\"category\":[{{\"name\":\"{category.categoryName}\",\"id\":\"{category.id}\"}}],'#### add category
+                medias+=f'\"campus\":[{{\"id\":\"{campus.id}\",\"name\":\"{campus.campus.campusName}\",\"ad\":\"{a.id}\"}}],'#### add campus
+
             medias+="\"ads\":"+joined+"}"+""
-                
-            # joined = f",\"medias\":{medias} }}]".join(joined.split('}]'))
         
             return HttpResponse(medias,content_type='applicatoin/json',status=200)
         except:
