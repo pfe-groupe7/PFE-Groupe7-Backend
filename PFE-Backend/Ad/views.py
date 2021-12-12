@@ -50,9 +50,17 @@ def editAd(request,id):
 
 def getAllAds(request):
     try:
-        allAds =serializers.serialize('json', Ad.objects.all())
-        print(allAds)
-        return HttpResponse(allAds,content_type='applicatoin/json',status=200)
+        allAds=Ad.objects.all()
+        joined =serializers.serialize('json', allAds)
+        medias="{"
+        for a in allAds :
+            media=getMediaByAdId(a.id)
+            medias +=f'\"{a.id}\":'+serializers.serialize('json', media)+','
+        medias+="\"ads\":"+joined+"}"+""
+            
+        # joined = f",\"medias\":{medias} }}]".join(joined.split('}]'))
+       
+        return HttpResponse(medias,content_type='applicatoin/json',status=200)
     except:
         return HttpResponse(status=500)
 
@@ -86,3 +94,13 @@ def deleteAd(request,id):
              return HttpResponse(status=404)
     except:
         return HttpResponse(status=500)
+
+######
+# 
+def getMediaByAdId(id):
+    try:
+        j = Media.objects.filter(ad_id=id)
+
+        return j
+    except:
+        return -1       

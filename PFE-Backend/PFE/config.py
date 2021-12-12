@@ -8,7 +8,7 @@ dev = {
 
         'USER': 'postgres',
 
-        'PASSWORD': 'mdp',
+        'PASSWORD': 'azerty',
 
         'HOST': 'localhost',
 

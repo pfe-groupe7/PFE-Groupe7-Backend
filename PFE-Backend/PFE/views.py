@@ -13,8 +13,9 @@ def login(request):
     user = User(**j)
     res = User.objects.filter(email=user.email)
     token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
+    print(token)
     if(res.count() != 0):
-        return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname}}), content_type="application/json")
+        return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname,"id":res.first().id}}), content_type="application/json")
 
     else:
         return HttpResponse(status=404)
@@ -22,10 +23,14 @@ def login(request):
 
 def register(request):
     j = json.loads(request.body.decode())
-    user = User(**j)
-    print(user)
+    print(request.body)
+    user = User(email=j["email"],lastname = j["lastname"],firstname =j["firstname"],campus = Campus.objects.get(pk=j["campus"]), password=j["password"], moderator=j["moderator"])
+    
+
+    # user.firstname=j.firstname
+    # print(dir(user))
     try:
-        print(j)
+        # print(j)
         user.save()
         response_data = "test-register"
         return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
@@ -37,9 +42,12 @@ def getUserById(request, id):
     try:
         print(id)
         j = User.objects.get(pk=id)
+        print(j.campus)
         user = serializers.serialize('json', [j], ensure_ascii=False)
-        print(user)
-        return HttpResponse(user, content_type='application.json', status=200)
+        campus=j.campus
+        joined = f",\"campusName\":\"{campus.campusName}\" }}]".join(user.split('}]'))
+
+        return HttpResponse(joined, content_type='txt', status=200)
     except:
         return HttpResponse(status=500)
 
@@ -98,6 +106,7 @@ def deleteUser(request, id):
 # Test function
 def Hello(request):
     return HttpResponse("Welcome Backend")
+    
 
 #Insert dummy data
 def insertTestData(request):
