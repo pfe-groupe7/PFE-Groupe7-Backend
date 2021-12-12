@@ -9,99 +9,107 @@ from PFE.models import User,Ad,Campus,Location,Media,Category,AdsCampus
 import json
 
 def login(request):
-    j = json.loads(request.body.decode())
-    user = User(**j)
-    res = User.objects.filter(email=user.email)
-    token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
-    print(token)
-    if(res.count() != 0):
-        return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname,"id":res.first().id}}), content_type="application/json")
 
+    if request.method == 'POST':
+        j = json.loads(request.body.decode())
+        user = User(**j)
+        res = User.objects.filter(email=user.email)
+        token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
+        if(res.count() != 0):
+            return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname}}), content_type="application/json")
+        else:
+            return HttpResponse(status=404)
     else:
-        return HttpResponse(status=404)
-
+        return HttpResponse(status=400)
 
 def register(request):
+  if request.method == 'POST':
     j = json.loads(request.body.decode())
     print(request.body)
     user = User(email=j["email"],lastname = j["lastname"],firstname =j["firstname"],campus = Campus.objects.get(pk=j["campus"]), password=j["password"], moderator=j["moderator"])
-    
-
-    # user.firstname=j.firstname
-    # print(dir(user))
-    try:
-        # print(j)
-        user.save()
-        response_data = "test-register"
-        return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
-    except:
-        return HttpResponse(status=409)
-
+      try:
+          # print(j)
+          user.save()
+          response_data = "test-register"
+          return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
+      except:
+          return HttpResponse(status=409)    
+    else:
+        return HttpResponse(status=400)
 
 def getUserById(request, id):
-    try:
-        print(id)
-        j = User.objects.get(pk=id)
-        print(j.campus)
-        user = serializers.serialize('json', [j], ensure_ascii=False)
-        campus=j.campus
-        joined = f",\"campusName\":\"{campus.campusName}\" }}]".join(user.split('}]'))
-
-        return HttpResponse(joined, content_type='txt', status=200)
-    except:
-        return HttpResponse(status=500)
+    if request.method == 'GET':
+        try:
+            print(id)
+            j = User.objects.get(pk=id)
+            user = serializers.serialize('json', [j], ensure_ascii=False)
+            print(user)
+            return HttpResponse(user, content_type='application.json', status=200)
+        except:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
 
 
 def getAllUsers(request):
-    try:
-        users = User.objects.all()
-        users = serializers.serialize('json', users, ensure_ascii=False)
-        print(users)
-        return HttpResponse(users, content_type='application.json', status=200) 
-    except:
-        return HttpResponse(status=500)
+    if request.method == 'GET':
+        try:
+            users = User.objects.all()
+            users = serializers.serialize('json', users, ensure_ascii=False)
+            print(users)
+            return HttpResponse(users, content_type='application.json', status=200) 
+        except:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
+  
         
 
 def editUser(request, id):
-    try:
-        print(id)
-        newData = json.loads(request.body.decode())
-        if newData['campus'] != '':
-            User.objects.filter(pk=id).update(campus=newData['campus'])
-        if newData['password'] != '':
-            User.objects.filter(pk=id).update(password=newData['password'])
-        print('Updated')
-        response_data = 'User updated'
-        return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
-    except:
-        return HttpResponse(status=500)
-
-def deleteUser(request, id):
-    try:
-        if User.objects.filter(pk=id):
-            print('delete user id')
+    if request.method == 'PUT':
+        try:
             print(id)
-            adsToDelete = Ad.objects.filter(seller=id).values_list()
-            adsIdList=[]
-            for index in range(adsToDelete.count()):
-                adsIdList.append(adsToDelete[index][0])
+            newData = json.loads(request.body.decode())
+            if newData['campus'] != '':
+                User.objects.filter(pk=id).update(campus=newData['campus'])
+            if newData['password'] != '':
+                User.objects.filter(pk=id).update(password=newData['password'])
+            print('Updated')
+            response_data = 'User updated'
+            return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
+        except:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
+   
+def deleteUser(request, id):
+    if request.method == 'DELETE':
+        try:
+            if User.objects.filter(pk=id):
+                print('delete user id')
+                print(id)
+                adsToDelete = Ad.objects.filter(seller=id).values_list()
+                adsIdList=[]
+                for index in range(adsToDelete.count()):
+                    adsIdList.append(adsToDelete[index][0])
 
-            print(adsIdList)
+                print(adsIdList)
         
-
-            for index in range(len(adsIdList)):
-                print('ad id :')
-                deleteAd('http://127.0.0.1:8000/ads/delete/',adsIdList.pop())
-               
-            
-            User.objects.filter(pk=id).delete()
-            response_data = 'user deleted'
-            return HttpResponse(json.dumps(response_data),content_type='applicatoin/json',status=200)
-        else:
+                for index in range(len(adsIdList)):
+                    print('ad id :')
+                    deleteAd('http://127.0.0.1:8000/ads/delete/',adsIdList.pop())
+                
+                User.objects.filter(pk=id).delete()
+                response_data = 'user deleted'
+                return HttpResponse(json.dumps(response_data),content_type='applicatoin/json',status=200)
+            else:
              print('User not found')
              return HttpResponse(status=404)
-    except:
-        return HttpResponse(status = 500)
+        except:
+            return HttpResponse(status = 500)
+    else:
+        return HttpResponse(status=400)
+    
 
 # Test function
 def Hello(request):
