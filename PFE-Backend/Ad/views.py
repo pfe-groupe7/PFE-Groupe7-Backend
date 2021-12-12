@@ -11,7 +11,7 @@ from PFE.models import Ad, AdsCampus,Media
 
 # Create your views here.
 
-
+# create an adscampus and media in the same method or not?
 def createAd(request):
     if request.method=='POST':
         j = json.loads(request.body.decode())
@@ -27,7 +27,7 @@ def createAd(request):
     else:
         return HttpResponse(HttpResponse=400)
 
-#Assume that every updatable fields must be filled in frontend
+#Assume that every updatable fields must be filled in frontend. Must be able to edit campus (in adscampus)
 def editAd(request,id):
     if request.method=='PUT':
         try:
@@ -65,7 +65,7 @@ def getAllAds(request):
     else:
         return HttpResponse(status=400)
 
-
+# return also adscampus or campus
 def getAdById(request,id):
     if request.method == 'GET':
         try:
