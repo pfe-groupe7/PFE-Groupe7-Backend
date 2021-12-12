@@ -6,6 +6,7 @@ from django.db.models.base import Model, ModelState
 from django.db.models.constraints import UniqueConstraint
 from django.db.models.deletion import CASCADE
 
+
 class Campus(models.Model):
     id = models.AutoField('campus_id',primary_key=True)
     campusName = models.CharField('campus_name',unique=True,max_length=64)
@@ -35,7 +36,7 @@ class AdsCampus(models.Model):
 
 class Media(models.Model):
     id = models.AutoField('media_id',primary_key=True)
-    url = models.CharField('url',max_length=2048)
+    url = models.TextField('url')
     ad = models.ForeignKey('ad',on_delete=models.CASCADE,default=1)
 
 

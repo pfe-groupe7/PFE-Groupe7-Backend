@@ -9,6 +9,7 @@ from PFE.models import User,Ad,Campus,Location,Media,Category,AdsCampus
 import json
 
 def login(request):
+
     if request.method == 'POST':
         j = json.loads(request.body.decode())
         user = User(**j)
@@ -22,20 +23,19 @@ def login(request):
         return HttpResponse(status=400)
 
 def register(request):
-    if request.method == 'POST':
-        j = json.loads(request.body.decode())
-        user = User(**j)
-        print(user)
-        try:
-            print(j)
-            user.save()
-            response_data = "test-register"
-            return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
-        except:
-            return HttpResponse(status=409)
+  if request.method == 'POST':
+    j = json.loads(request.body.decode())
+    print(request.body)
+    user = User(email=j["email"],lastname = j["lastname"],firstname =j["firstname"],campus = Campus.objects.get(pk=j["campus"]), password=j["password"], moderator=j["moderator"])
+      try:
+          # print(j)
+          user.save()
+          response_data = "test-register"
+          return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
+      except:
+          return HttpResponse(status=409)    
     else:
         return HttpResponse(status=400)
-
 
 def getUserById(request, id):
     if request.method == 'GET':
@@ -114,6 +114,7 @@ def deleteUser(request, id):
 # Test function
 def Hello(request):
     return HttpResponse("Welcome Backend")
+    
 
 #Insert dummy data
 def insertTestData(request):
