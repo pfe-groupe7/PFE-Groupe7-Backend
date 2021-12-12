@@ -64,6 +64,8 @@ class Ad(models.Model):
         max_length=64, choices=State.choices, default=State.PENDING)
     price = models.IntegerField('price')
     seller = models.ForeignKey('user',on_delete=models.CASCADE,default=1)
+    category = models.ForeignKey('category',on_delete=models.CASCADE,default=1)
+
 
 
 
