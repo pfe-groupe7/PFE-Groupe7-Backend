@@ -55,23 +55,23 @@ def editAd(request,id):
 
 
 def getAllAds(request):
-if request.method=='GET':
-    try:
-        allAds=Ad.objects.all()
-        joined =serializers.serialize('json', allAds)
-        medias="{"
-        for a in allAds :
-            media=getMediaByAdId(a.id)
-            medias +=f'\"{a.id}\":'+serializers.serialize('json', media)+','
-        medias+="\"ads\":"+joined+"}"+""
-            
-        # joined = f",\"medias\":{medias} }}]".join(joined.split('}]'))
-       
-        return HttpResponse(medias,content_type='applicatoin/json',status=200)
-    except:
-        return HttpResponse(status=500)
-  else:
-        return HttpResponse(status=400)    
+    if request.method=='GET':
+        try:
+            allAds=Ad.objects.all()
+            joined =serializers.serialize('json', allAds)
+            medias="{"
+            for a in allAds :
+                media=getMediaByAdId(a.id)
+                medias +=f'\"{a.id}\":'+serializers.serialize('json', media)+','
+            medias+="\"ads\":"+joined+"}"+""
+                
+            # joined = f",\"medias\":{medias} }}]".join(joined.split('}]'))
+        
+            return HttpResponse(medias,content_type='applicatoin/json',status=200)
+        except:
+            return HttpResponse(status=500)
+    else:
+            return HttpResponse(status=400)    
 
 # return also adscampus or campus
 def getAdById(request,id):
@@ -113,12 +113,11 @@ def deleteAd(request,id):
 ######
 # 
 def getMediaByAdId(id):
-   if request.method=="GET":
+   
       try:
           j = Media.objects.filter(ad_id=id)
 
           return j
       except:
           return -1  
-    else:
-        return HttpResponse(status=400)  
+

@@ -16,7 +16,7 @@ def login(request):
         res = User.objects.filter(email=user.email)
         token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
         if(res.count() != 0):
-            return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname}}), content_type="application/json")
+            return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname,"id":res.first().id}}), content_type="application/json")
         else:
             return HttpResponse(status=404)
     else:
@@ -27,12 +27,12 @@ def register(request):
     j = json.loads(request.body.decode())
     print(request.body)
     user = User(email=j["email"],lastname = j["lastname"],firstname =j["firstname"],campus = Campus.objects.get(pk=j["campus"]), password=j["password"], moderator=j["moderator"])
-      try:
+    try:
           # print(j)
           user.save()
           response_data = "test-register"
           return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
-      except:
+    except:
           return HttpResponse(status=409)    
     else:
         return HttpResponse(status=400)
