@@ -22,6 +22,10 @@ urlpatterns = [
     path('', views.Hello),
     path('login', views.login),
     path('register', views.register),
+    path('users/<int:id>',views.getUserById),
+    path('users',views.getAllUsers),
+    path('users/update/<int:id>', views.editUser),
+    path('users/delete/<int:id>',views.deleteUser),
     path('insertTest',views.insertTestData),
     path('',include('Ad.urls'))
 
