@@ -42,11 +42,14 @@ def getUserById(request, id):
         try:
             print(id)
             j = User.objects.get(pk=id)
+            print(j.campus)
             user = serializers.serialize('json', [j], ensure_ascii=False)
-            print(user)
-            return HttpResponse(user, content_type='application.json', status=200)
+            campus=j.campus
+            joined = f",\"campusName\":\"{campus.campusName}\" }}]".join(user.split('}]'))
+
+            return HttpResponse(joined, content_type='txt', status=200)
         except:
-            return HttpResponse(status=500)
+          return HttpResponse(status=500)
     else:
         return HttpResponse(status=400)
 
