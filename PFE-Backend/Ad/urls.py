@@ -22,5 +22,6 @@ urlpatterns = [
     path('ads',views.getAllAds),
     path('ads/<int:id>',views.getAdById),
     path('ads/update/<int:id>',views.editAd),
-    path('ads/delete/<int:id>',views.deleteAd)
+    path('ads/delete/<int:id>',views.deleteAd),
+    path('categories',views.getallCategory)
 ]

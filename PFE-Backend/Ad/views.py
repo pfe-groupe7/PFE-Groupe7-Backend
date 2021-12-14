@@ -185,4 +185,13 @@ def findLocationById(id):
         return j
     except:
         return HttpResponse(status=404)
+def getallCategory(request):
+    if request.method=="GET":
+        try:
+        
+            return HttpResponse(serializers.serialize('json',Category.objects.all()),content_type='applicatoin/json',status=200)
+        except:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
 
