@@ -7,7 +7,8 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, response
 from django.core import serializers
 import json
-from PFE.models import Ad, AdsCampus,Media,Category,Campus
+from PFE.models import Ad, AdsCampusLocation, Campus, Location,Media,Category,User
+
 
 # Create your views here.
 
@@ -15,12 +16,35 @@ from PFE.models import Ad, AdsCampus,Media,Category,Campus
 def createAd(request):
     if request.method=='POST':
         j = json.loads(request.body.decode())
-        ad = Ad(**j)
-        # default status is pending.
-        print(ad.status)
+        #ad = Ad(**j)
+        print(j['category']+'   '+j['campus']+'   '+j['status'])
+        print(j['userId'])
+        print('location '+j['location'])
+        #print(ad.status)
         try:
-            ad.save()
-            response_data = 'Ad added '+ad.title
+            #insert ad for user with id 1 for testing
+            FKcategory = findCategoryById(j['category'])
+            FKuser = getUserById(j['userId'])
+            FKcampus = findCampusById(j['campus'])
+            Fklocation = findLocationById(j['location'])
+           
+
+            print('Category name got :'+FKcategory.categoryName)
+            print('user name got : '+FKuser.firstname)
+            print('Location got: '+Fklocation.name)
+            #print(FKcampus)
+            # default status is pending.
+            if j['price']:
+                newAd = Ad(status=j['status'],title=j['title'],description=j['description'],state=Ad.State.PENDING,price=j['price'],seller=FKuser,category=FKcategory)
+            else:
+                newAd = Ad(status=j['status'],title=j['title'],description=j['description'],state=Ad.State.PENDING,price = 0,seller=FKuser,category=FKcategory)
+            newAd.save()
+            #insert adsCampus
+            newAdsCampusLoc = AdsCampusLocation(ad = newAd, campus = FKcampus,location=Fklocation)
+        #insert localisation (wait for frontend fix)
+
+            newAdsCampusLoc.save()  
+            response_data = 'Ad added'
             return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
         except:
             return HttpResponse(status=500)
@@ -132,4 +156,33 @@ def getMediaByAdId(id):
           return j
       except:
           return -1  
+
+def findCategoryById(id):
+    try:
+        category = Category.objects.get(pk=id)
+        return category
+    except:
+        return NameError
+
+def findCampusById(id):
+    try:
+        campus = Campus.objects.get(pk = id)
+        return  campus
+
+    except:
+        return NameError
+
+def getUserById(id):
+        try:
+            j = User.objects.get(pk=id)
+           
+            return j
+        except:
+          return HttpResponse(status=500)
+def findLocationById(id):
+    try:
+        j = Location.objects.get(pk=id)
+        return j
+    except:
+        return HttpResponse(status=404)
 
