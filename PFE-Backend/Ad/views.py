@@ -12,6 +12,24 @@ from PFE.models import Ad, AdsCampusLocation, Campus, Location,Media,Category,Us
 
 # Create your views here.
 
+def addMedia(request):
+    if request.method=='POST':
+        try:
+            newData = json.loads(request.body.decode())
+            print('url got: '+newData['url'])
+            newAd = Ad.objects.last()
+            print('id of new ad: ')
+            print(newAd.id)
+            newMedia = Media(url=newData['url'],ad=newAd)
+            newMedia.save()
+            response_data = 'media added'
+            return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
+        except:
+             return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
+    
+
 # create an adscampus and media in the same method or not?
 def createAd(request):
     if request.method=='POST':
