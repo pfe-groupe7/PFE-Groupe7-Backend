@@ -8,7 +8,7 @@ from django.db.models.deletion import CASCADE
 class Campus(models.Model):
     id = models.AutoField('campus_id',primary_key=True)
     campusName = models.CharField('campus_name',unique=True,max_length=64)
-
+    
 
 class Location(models.Model):
     id = models.AutoField('location_id',primary_key=True)
@@ -38,6 +38,7 @@ class Media(models.Model):
 class Category(models.Model):
     id = models.AutoField('category_id',primary_key=True)
     categoryName = models.CharField('category_name',max_length=64,unique=True)
+    parent = models.ForeignKey('category',on_delete=models.CASCADE,default=1)
 
 class Ad(models.Model):
     class Status(models.TextChoices):
