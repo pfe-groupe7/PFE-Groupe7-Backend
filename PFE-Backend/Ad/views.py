@@ -18,32 +18,31 @@ def createAd(request):
         #ad = Ad(**j)
         print(j['category']+'   '+j['campus']+'   '+j['status'])
         print(j['userId'])
-        print('loca11 '+j['localisation1'])
-        print('local2 '+j['localisation2'])
-        print('local3 '+j['localisation3'])
+        print('location '+j['location'])
         #print(ad.status)
         try:
             #insert ad for user with id 1 for testing
             FKcategory = findCategoryById(j['category'])
             FKuser = getUserById(j['userId'])
             FKcampus = findCampusById(j['campus'])
-            
+            Fklocation = findLocationById(j['location'])
            
 
             print('Category name got :'+FKcategory.categoryName)
             print('user name got : '+FKuser.firstname)
+            print('Location got: '+Fklocation.name)
             #print(FKcampus)
             # default status is pending.
             if j['price']:
                 newAd = Ad(status=j['status'],title=j['title'],description=j['description'],state=Ad.State.PENDING,price=j['price'],seller=FKuser,category=FKcategory)
             else:
                 newAd = Ad(status=j['status'],title=j['title'],description=j['description'],state=Ad.State.PENDING,price = 0,seller=FKuser,category=FKcategory)
-            #newAd.save()
+            newAd.save()
             #insert adsCampus
-            newAdsCampus = AdsCampus(ad = newAd, campus = FKcampus)
+            newAdsCampusLoc = AdsCampusLocation(ad = newAd, campus = FKcampus,location=Fklocation)
         #insert localisation (wait for frontend fix)
 
-           # newAdsCampus.save()  
+            newAdsCampusLoc.save()  
             response_data = 'Ad added'
             return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
         except:
@@ -170,9 +169,10 @@ def getUserById(id):
             return j
         except:
           return HttpResponse(status=500)
-def findlocalisationById(id):
+def findLocationById(id):
     try:
         j = Location.objects.get(pk=id)
-        return j;
+        return j
     except:
         return HttpResponse(status=404)
+
