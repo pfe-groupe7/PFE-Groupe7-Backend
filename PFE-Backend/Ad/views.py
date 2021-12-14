@@ -9,6 +9,7 @@ from django.core import serializers
 import json
 from PFE.models import Ad, AdsCampusLocation, Campus, Location,Media,Category,User
 
+
 # Create your views here.
 
 # create an adscampus and media in the same method or not?
@@ -81,19 +82,28 @@ def getAllAds(request):
     if request.method=='GET':
         try:
             allAds=Ad.objects.all()
-            joined =serializers.serialize('json', allAds)
-            medias="{"
-            for a in allAds :
-                media=getMediaByAdId(a.id)
-                category=a.category
-                campus=AdsCampus.objects.filter(ad=a.id).first()
-                medias +=f'\"{a.id}\":'+serializers.serialize('json', media)+','#### add media foreach ad
-                medias+=f'\"category\":[{{\"name\":\"{category.categoryName}\",\"id\":\"{category.id}\"}}],'#### add category
-                medias+=f'\"campus\":[{{\"id\":\"{campus.id}\",\"name\":\"{campus.campus.campusName}\",\"ad\":\"{a.id}\"}}],'#### add campus
+            allAds =serializers.serialize('json', allAds)
+            all="{"
+            allCampus=""
+            allCatgory=""
+            allMedia=""
+            # for a in allAds :
+            #     media=getMediaByAdId(a.id)
+            #     category=a.category
+            #     campus=AdsCampus.objects.filter(ad=a.id).first()
+            #     allMedia+=f'\"{a.id}\":'+serializers.serialize('json', media)+','#### add media foreach ad
+            #     allCatgory+=f'\"{category.id}\":[{{\"name\":\"{category.categoryName}\",\"id\":\"{category.id}\",\"ad\":\"{a.id}\"}}],'#### add category
+            #     allCampus+=f'\"{campus.id}\":[{{\"id\":\"{campus.id}\",\"name\":\"{campus.campus.campusName}\",\"ad\":\"{a.id}\"}}],'#### add campus
 
-            medias+="\"ads\":"+joined+"}"+""
-        
-            return HttpResponse(medias,content_type='applicatoin/json',status=200)
+            # all+="\"campus\":{"+allCampus[:-1]+"},\"category\":{"+allCatgory[:-1]+"},\"medias\":{"+allMedia[:-1]+"},\"ads\":"+joined+"}"
+            allCampus=serializers.serialize('json', Campus.objects.all())
+            adsCampus=serializers.serialize('json', AdsCampus.objects.all())
+            allCatgory=serializers.serialize('json', Category.objects.all())
+            allMedia=serializers.serialize('json', Media.objects.all())
+            all+="\"adsCampus\":"+adsCampus+",\"campus\":"+allCampus+",\"categories\":"+allCatgory+",\"medias\":"+allMedia+",\"ads\":"+allAds+"}"
+            print(allAds)
+
+            return HttpResponse(all,content_type='applicatoin/json',status=200)
         except:
             return HttpResponse(status=500)
     else:
