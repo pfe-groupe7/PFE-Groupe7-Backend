@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, response
 from django.core import serializers
 import json
-from PFE.models import Ad, AdsCampus, Campus,Media,Category,User
+from PFE.models import Ad, AdsCampusLocation, Campus, Location,Media,Category,User
 
 # Create your views here.
 
@@ -18,6 +18,9 @@ def createAd(request):
         #ad = Ad(**j)
         print(j['category']+'   '+j['campus']+'   '+j['status'])
         print(j['userId'])
+        print('loca11 '+j['localisation1'])
+        print('local2 '+j['localisation2'])
+        print('local3 '+j['localisation3'])
         #print(ad.status)
         try:
             #insert ad for user with id 1 for testing
@@ -25,6 +28,8 @@ def createAd(request):
             FKuser = getUserById(j['userId'])
             FKcampus = findCampusById(j['campus'])
             
+           
+
             print('Category name got :'+FKcategory.categoryName)
             print('user name got : '+FKuser.firstname)
             #print(FKcampus)
@@ -33,12 +38,12 @@ def createAd(request):
                 newAd = Ad(status=j['status'],title=j['title'],description=j['description'],state=Ad.State.PENDING,price=j['price'],seller=FKuser,category=FKcategory)
             else:
                 newAd = Ad(status=j['status'],title=j['title'],description=j['description'],state=Ad.State.PENDING,price = 0,seller=FKuser,category=FKcategory)
-            newAd.save()
+            #newAd.save()
             #insert adsCampus
             newAdsCampus = AdsCampus(ad = newAd, campus = FKcampus)
         #insert localisation (wait for frontend fix)
 
-            newAdsCampus.save()  
+           # newAdsCampus.save()  
             response_data = 'Ad added'
             return HttpResponse(json.dumps(response_data), content_type='application/json', status=200)
         except:
@@ -165,3 +170,9 @@ def getUserById(id):
             return j
         except:
           return HttpResponse(status=500)
+def findlocalisationById(id):
+    try:
+        j = Location.objects.get(pk=id)
+        return j;
+    except:
+        return HttpResponse(status=404)
