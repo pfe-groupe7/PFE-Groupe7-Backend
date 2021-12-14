@@ -9,7 +9,7 @@ from PFE.models import User,Ad,Campus,Location,Media,Category,AdsCampus
 import json
 
 def login(request):
-    insertTestData(request)
+
     if request.method == 'POST':
         j = json.loads(request.body.decode())
         user = User(**j)

@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, response
 from django.core import serializers
 import json
-from PFE.models import Ad, AdsCampus,Media,Category
+from PFE.models import Ad, AdsCampus,Media,Category,Campus
 
 # Create your views here.
 
@@ -72,10 +72,11 @@ def getAllAds(request):
             #     allCampus+=f'\"{campus.id}\":[{{\"id\":\"{campus.id}\",\"name\":\"{campus.campus.campusName}\",\"ad\":\"{a.id}\"}}],'#### add campus
 
             # all+="\"campus\":{"+allCampus[:-1]+"},\"category\":{"+allCatgory[:-1]+"},\"medias\":{"+allMedia[:-1]+"},\"ads\":"+joined+"}"
-            allCampus=serializers.serialize('json', AdsCampus.objects.all())
+            allCampus=serializers.serialize('json', Campus.objects.all())
+            adsCampus=serializers.serialize('json', AdsCampus.objects.all())
             allCatgory=serializers.serialize('json', Category.objects.all())
-            allMedia=serializers.serialize('json', Media.objects.filter(pk=2))
-            all+="\"campus\":"+allCampus+",\"categories\":"+allCatgory+",\"medias\":"+allMedia+",\"ads\":"+allAds+"}"
+            allMedia=serializers.serialize('json', Media.objects.all())
+            all+="\"adsCampus\":"+adsCampus+",\"campus\":"+allCampus+",\"categories\":"+allCatgory+",\"medias\":"+allMedia+",\"ads\":"+allAds+"}"
             print(allAds)
 
             return HttpResponse(all,content_type='applicatoin/json',status=200)

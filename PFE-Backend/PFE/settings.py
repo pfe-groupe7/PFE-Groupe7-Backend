@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'PFE.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DATABASES=dev
+DATABASES=prod
 
 
 # Password validation

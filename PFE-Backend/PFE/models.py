@@ -42,7 +42,7 @@ class Media(models.Model):
 
 class Category(models.Model):
     id = models.AutoField('category_id',primary_key=True)
-    categoryName = models.CharField('category_name',max_length=64,unique=True,null=False)
+    categoryName = models.CharField('category_name',max_length=64,unique=True)
     parent = models.ForeignKey('category',on_delete=models.CASCADE,blank=True,null=True)
 
 class Ad(models.Model):
