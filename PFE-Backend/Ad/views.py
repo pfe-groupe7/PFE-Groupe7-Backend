@@ -115,7 +115,7 @@ def getAllAds(request):
 
             # all+="\"campus\":{"+allCampus[:-1]+"},\"category\":{"+allCatgory[:-1]+"},\"medias\":{"+allMedia[:-1]+"},\"ads\":"+joined+"}"
             allCampus=serializers.serialize('json', Campus.objects.all())
-            adsCampus=serializers.serialize('json', AdsCampus.objects.all())
+            adsCampus=serializers.serialize('json', AdsCampusLocation.objects.all())
             allCatgory=serializers.serialize('json', Category.objects.all())
             allMedia=serializers.serialize('json', Media.objects.all())
             all+="\"adsCampus\":"+adsCampus+",\"campus\":"+allCampus+",\"categories\":"+allCatgory+",\"medias\":"+allMedia+",\"ads\":"+allAds+"}"
@@ -151,7 +151,7 @@ def deleteAd(request,id):
             if Ad.objects.filter(pk=id):
                 Media.objects.filter(ad=id).delete()
                 print('media deleted')
-                AdsCampus.objects.filter(ad=id).delete()
+                AdsCampusLocation.objects.filter(ad=id).delete()
                 print('adscampus deleted')
                 Ad.objects.filter(pk=id).delete()
                 response_data = 'ad deleted'
@@ -203,4 +203,13 @@ def findLocationById(id):
         return j
     except:
         return HttpResponse(status=404)
+def getallCategory(request):
+    if request.method=="GET":
+        try:
+        
+            return HttpResponse(serializers.serialize('json',Category.objects.all()),content_type='applicatoin/json',status=200)
+        except:
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
 
