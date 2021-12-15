@@ -13,8 +13,8 @@ def login(request):
     if request.method == 'POST':
         j = json.loads(request.body.decode())
         user = User(**j)
-        print(serializers.serialize(User.objects.all()))
-        res = User.objects.filter(email=user.email)
+        #print(serializers.serialize(User.objects.all()))
+        res = User.objects.filter(email=user.email,password=user.password)
         token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
         if(res.count() != 0):
             return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname,"id":res.first().id}}), content_type="application/json")
