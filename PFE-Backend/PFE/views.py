@@ -166,13 +166,13 @@ def insertTestData(request):
 
 
     #Categories
-    maisonJardon = Category(categoryName='Maison et Jardon')
-    maisonJardon.save()
-    outils = Category(categoryName='Outils',parent=maisonJardon)
-    meubles = Category(categoryName='Meubles',parent=maisonJardon)
-    pourMaison = Category(categoryName='Pour la maison',parent=maisonJardon)
-    jardin = Category(categoryName='Jardins',parent=maisonJardon)
-    electro = Category(categoryName='Electroménager',parent=maisonJardon)
+    maisonJardin = Category(categoryName='Maison et Jardin')
+    maisonJardin.save()
+    outils = Category(categoryName='Outils',parent=maisonJardin)
+    meubles = Category(categoryName='Meubles',parent=maisonJardin)
+    pourMaison = Category(categoryName='Pour la maison',parent=maisonJardin)
+    jardin = Category(categoryName='Jardins',parent=maisonJardin)
+    electro = Category(categoryName='Electroménager',parent=maisonJardin)
     outils.save()
     meubles.save()
     meubles.save()
