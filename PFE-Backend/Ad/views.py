@@ -73,18 +73,26 @@ def createAd(request):
 def editAd(request,id):
     if request.method=='PUT':
         try:
-            print(id)
+            adId=id
             newData = json.loads(request.body.decode())
-            if newData['title']!='':
-                Ad.objects.filter(pk=id).update(title=newData['title'])
-            if newData['status']!='':  
-                Ad.objects.filter(pk=id).update(status=newData['status'])
+            print("before")
+             
+   
+           
+            # print("after")
+            # if newData['title']!='':
+            #     print("title")
+            #     Ad.objects.filter(id=adId).update(title=newData['title'])
+            # if newData['status']!='':  
+            #     print("statu")
+            #     Ad.objects.filter(id=adId).update(status=newData['status'])
             if newData['state']!='':  
-                Ad.objects.filter(pk=id).update(state=newData['state'])  
-            if newData['description']!='':
-                Ad.objects.filter(pk=id).update(description=newData['description'])
-            if newData['price']!='':
-                Ad.objects.filter(pk=id).update(price=newData['price'])  
+                print(newData)
+                Ad.objects.filter(id=adId).update(state=newData['state'])  
+            # if newData['description']!='':
+            #     Ad.objects.filter(id=adId).update(description=newData['description'])
+            # if newData['price']!='':
+            #     Ad.objects.filter(id=adId).update(price=newData['price'])  
                 
             print('updated')
             response_data = 'data updated'
@@ -118,7 +126,9 @@ def getAllAds(request):
             adsCampus=serializers.serialize('json', AdsCampusLocation.objects.all())
             allCatgory=serializers.serialize('json', Category.objects.all())
             allMedia=serializers.serialize('json', Media.objects.all())
-            all+="\"adsCampus\":"+adsCampus+",\"campus\":"+allCampus+",\"categories\":"+allCatgory+",\"medias\":"+allMedia+",\"ads\":"+allAds+"}"
+            allUser=serializers.serialize('json', User.objects.all())
+            allLocations=serializers.serialize('json', Location.objects.all())
+            all+="\"adsCampus\":"+adsCampus+",\"campus\":"+allCampus+",\"locations\":"+allLocations+",\"users\":"+allUser+",\"categories\":"+allCatgory+",\"medias\":"+allMedia+",\"ads\":"+allAds+"}"
             print(allAds)
 
             return HttpResponse(all,content_type='applicatoin/json',status=200)
