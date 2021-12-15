@@ -47,7 +47,7 @@ class Ad(models.Model):
 
     class State(models.TextChoices):
         PUBLISHED = 'publié'
-        PENDING = 'attendre validation'
+        PENDING = 'en attente de validation'
         REJECTED = 'refusé'
         CLOSED = 'clôturé'
         
