@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from django.core import serializers
 from Ad.views import deleteAd
-from PFE.models import AdsCampusLocation, User,Ad,Campus,Location,Media,Category
+from PFE.models import User,Ad,Campus,Location,Media,Category,AdsCampusLocation
 import json
 
 def login(request):
@@ -13,6 +13,7 @@ def login(request):
     if request.method == 'POST':
         j = json.loads(request.body.decode())
         user = User(**j)
+        print(serializers.serialize(User.objects.all()))
         res = User.objects.filter(email=user.email)
         token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
         if(res.count() != 0):
@@ -125,10 +126,10 @@ def insertTestData(request):
     #The campus and the sites
     Ixelles = Campus(campusName='Ixelles')
     Ixelles.save()
-    WA249 = Location(name='Wavre_249', address='Chaussée de Wavre,249' )
-    LI14 = Location(name='Limauge_14',address='Rue de Limauge,14')
-    AR = Location(name = 'Arlon', address='Rue d\'Arlon 3-5-11,4-6-14')
-    TR84 = Location(name='TRËVE_84',address='Rue de Trêve,84/Rue d\'Arlon,53')
+    WA249 = Location(name='Wavre_249', address='Chaussée de Wavre,249', campus = Ixelles )
+    LI14 = Location(name='Limauge_14',address='Rue de Limauge,14',campus = Ixelles)
+    AR = Location(name = 'Arlon', address='Rue d\'Arlon 3-5-11,4-6-14',campus = Ixelles)
+    TR84 = Location(name='TRËVE_84',address='Rue de Trêve,84/Rue d\'Arlon,53',campus = Ixelles)
     WA249.save()
     LI14.save()
     AR.save()
@@ -136,6 +137,7 @@ def insertTestData(request):
 
     woluwe = Campus(campusName='Woluwe')
     woluwe.save()
+
     AL= Location(name='ALMA_II',address='Place de l\'Alma 3')
     ARC59= Location(name='ARCHES',address='Promenade de l\'Alma,59')
     CH41= Location(name='CHAMPS_41',address='Clos Chappelle-aux-Champs,41')
@@ -150,17 +152,18 @@ def insertTestData(request):
     louvain = Campus(campusName='Louvain la Neuve')
     louvain.save()
 
-    BA17 = Location(name='BARDANE_17',address='Chemin de la Bardane_17')
-    CA1 = Location(name='CARDLIJN_10',address='Voie Cardlijn,10')
-    LO1 = Location(name='LOVANO_1',address='Rue du traité de Rome,1')
-    LO14 = Location(name='LOVANO_14',address='Rue Pauline Ladeuze,14')
-    UE4 = Location(name='UNION EUROPEENE_4',address='Rue du l\'Union Européene,4')
+    BA17 = Location(name='BARDANE_17',address='Chemin de la Bardane_27',campus=louvain)
+    CA1 = Location(name='CARDLIJN_10',address='Voie Cardlijn,10',campus=louvain)
+    LO1 = Location(name='LOVANO_1',address='Rue du traité de Rome,1',campus=louvain)
+    LO14 = Location(name='LOVANO_14',address='Rue Pauline Ladeuze,14',campus=louvain)
+    UE4 = Location(name='UNION EUROPEENE_4',address='Rue du traité de Rome,1',campus=louvain)
 
     BA17.save()
     CA1.save()
     LO14.save()
     LO1.save()
     UE4.save()
+
 
     #Categories
     maisonJardon = Category(categoryName='Maison et Jardon')
@@ -216,7 +219,6 @@ def insertTestData(request):
     livres.save()
     instruments.save()
     antiquite.save()
-    velo.save()
 
     Electro = Category(categoryName='Electronique')
     Electro.save()
@@ -277,6 +279,5 @@ def insertTestData(request):
     me7.save()
     me8.save()
     me9.save()
-
 
     return HttpResponse('Some stuff got added in the db')
