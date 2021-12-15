@@ -73,10 +73,18 @@ def getAllUsers(request):
 def editUser(request, id):
     if request.method == 'PUT':
         try:
-            print(id)
+            idUser=id
             newData = json.loads(request.body.decode())
+            print("---------",newData)
+            User.objects.filter(id=idUser).update(campus=2)
+            print("---------")
+            print("old campus : ",User.objects.filter(id=idUser)[0].id)
+
             if newData['campus'] != '':
-                User.objects.filter(pk=id).update(campus=newData['campus'])
+                newCampus=Campus.objects.filter(campusName=newData['campus'])[0].id
+                print(newCampus)
+                User.objects.filter(pk=id).update(campus=newCampus)
+                
             if newData['password'] != '':
                 User.objects.filter(pk=id).update(password=newData['password'])
             print('Updated')
