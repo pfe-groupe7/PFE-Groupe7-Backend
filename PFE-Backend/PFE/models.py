@@ -46,10 +46,10 @@ class Ad(models.Model):
         TOGIVE = 'à donner'
 
     class State(models.TextChoices):
-        PUBLISHED = 'publié'
+        PUBLISHED = 'validée'
         PENDING = 'en attente de validation'
-        REJECTED = 'refusé'
-        CLOSED = 'clôturé'
+        REJECTED = 'refusée'
+        CLOSED = 'clôturée'
         
     id = models.AutoField(primary_key=True)
     status = models.CharField(max_length=64, choices=Status.choices)
