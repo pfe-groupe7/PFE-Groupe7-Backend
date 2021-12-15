@@ -138,10 +138,12 @@ def getAdById(request,id):
             user=serializers.serialize('json',User.objects.filter(pk=j.seller.id))
             adsCampusLoc=AdsCampusLocation.objects.filter(ad=id)
             location=adsCampusLoc[0].location.name
+            print(location)
             adsCampus=serializers.serialize('json',adsCampusLoc)
             campus=serializers.serialize('json',Campus.objects.all())
             medias=serializers.serialize('json',getMediaByAdId(id))
             ad  = serializers.serialize('json',[j],ensure_ascii=False)
+            print(location)
             all+="\"campus\":"+campus+",\"category\":"+category+",\"location\": \""+location+"\",\"adsCampus\":"+adsCampus+",\"medias\":"+medias+",\"ads\":"+ad+",\"seller\":"+user+"}"
            
             return HttpResponse(all,content_type='application/json',status=200)
