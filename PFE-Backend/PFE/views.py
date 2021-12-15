@@ -15,6 +15,7 @@ def login(request):
         user = User(**j)
         #print(serializers.serialize(User.objects.all()))
         res = User.objects.filter(email=user.email,password=user.password)
+        print(res)
         token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
         if(res.count() != 0):
             return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname,"id":res.first().id}}), content_type="application/json")
@@ -72,10 +73,18 @@ def getAllUsers(request):
 def editUser(request, id):
     if request.method == 'PUT':
         try:
-            print(id)
+            idUser=id
             newData = json.loads(request.body.decode())
+            print("---------",newData)
+            User.objects.filter(id=idUser).update(campus=2)
+            print("---------")
+            print("old campus : ",User.objects.filter(id=idUser)[0].id)
+
             if newData['campus'] != '':
-                User.objects.filter(pk=id).update(campus=newData['campus'])
+                newCampus=Campus.objects.filter(campusName=newData['campus'])[0].id
+                print(newCampus)
+                User.objects.filter(pk=id).update(campus=newCampus)
+                
             if newData['password'] != '':
                 User.objects.filter(pk=id).update(password=newData['password'])
             print('Updated')
@@ -101,7 +110,7 @@ def deleteUser(request, id):
         
                 for index in range(len(adsIdList)):
                     print('ad id :')
-                    deleteAd('http://127.0.0.1:8000/ads/delete/',adsIdList.pop())
+                    deleteAd([],adsIdList.pop())
                 
                 User.objects.filter(pk=id).delete()
                 response_data = 'user deleted'
