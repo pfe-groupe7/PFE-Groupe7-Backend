@@ -15,6 +15,7 @@ def login(request):
         user = User(**j)
         #print(serializers.serialize(User.objects.all()))
         res = User.objects.filter(email=user.email,password=user.password)
+        print(res)
         token = Token.generate_key()  # Token.objects.create(user=res.first().firstname)
         if(res.count() != 0):
             return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.first().firstname, "lastname": res.first().lastname,"id":res.first().id}}), content_type="application/json")
@@ -101,7 +102,7 @@ def deleteUser(request, id):
         
                 for index in range(len(adsIdList)):
                     print('ad id :')
-                    deleteAd('http://127.0.0.1:8000/ads/delete/',adsIdList.pop())
+                    deleteAd([],adsIdList.pop())
                 
                 User.objects.filter(pk=id).delete()
                 response_data = 'user deleted'

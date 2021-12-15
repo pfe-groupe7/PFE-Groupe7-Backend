@@ -153,7 +153,7 @@ def getAdById(request,id):
         return HttpResponse(status=400)
     
 def deleteAd(request,id):
-    if request.method=="DELETE":
+   
         try:
             print('delete ad id:')
             print(id)
@@ -172,8 +172,7 @@ def deleteAd(request,id):
                 return HttpResponse(status=404) 
         except:
             return HttpResponse(status=500)
-    else:
-        return HttpResponse(status=400)
+ 
 
 ######
 # 
