@@ -46,7 +46,7 @@ class Ad(models.Model):
         TOGIVE = 'à donner'
 
     class State(models.TextChoices):
-        PUBLISHED = 'publié'
+        PUBLISHED = 'validé'
         PENDING = 'en attente de validation'
         REJECTED = 'refusé'
         CLOSED = 'clôturé'

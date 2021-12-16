@@ -158,7 +158,7 @@ def insertTestData(request):
     CH43.save()
     MO84.save()
 
-    louvain = Campus(campusName='Louvain la Neuve')
+    louvain = Campus(campusName='Louvain-La-Neuve')
     louvain.save()
 
     BA17 = Location(name='BARDANE_17',address='Chemin de la Bardane_27',campus=louvain)

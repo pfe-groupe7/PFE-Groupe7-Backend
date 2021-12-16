@@ -142,7 +142,8 @@ def getAdById(request,id):
     if request.method == 'GET':
         try:
             print(id)
-            j = Ad.objects.get(pk=id)
+            j = Ad.objects.get(id=id)
+            print(j.id)
             all="{"
             category=serializers.serialize('json',Category.objects.filter(pk=j.category.id))
             user=serializers.serialize('json',User.objects.filter(pk=j.seller.id))
