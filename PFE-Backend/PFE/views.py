@@ -25,17 +25,20 @@ def login(request):
         return HttpResponse(status=400)
 
 def register(request):
-  if request.method == 'POST':
-    j = json.loads(request.body.decode())
-    print(request.body)
-    user = User(email=j["email"],lastname = j["lastname"],firstname =j["firstname"],campus = Campus.objects.get(pk=j["campus"]), password=j["password"], moderator=j["moderator"])
-    try:
-          # print(j)
-          user.save()
-          response_data = "test-register"
-          return HttpResponse(json.dumps(response_data), content_type="application/json", status=200)
-    except:
-          return HttpResponse(status=409)    
+    if request.method == 'POST':
+        j = json.loads(request.body.decode())
+        print(request.body)
+        user = User(email=j["email"],lastname = j["lastname"],firstname =j["firstname"],campus = Campus.objects.get(pk=j["campus"]), password=j["password"], moderator=j["moderator"])
+        try:
+            # print(j)
+            user.save()
+            res = User.objects.last()        
+            print('new id : ')
+            print(res.id)
+            token = Token.generate_key()
+            return HttpResponse(content=json.dumps({"token": token, "user": {"firstname": res.firstname, "lastname":  res.lastname,"id":res.id}}), content_type="application/json")
+        except:
+            return HttpResponse(status=409)    
     else:
         return HttpResponse(status=400)
 
