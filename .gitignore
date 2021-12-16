@@ -1,7 +1,6 @@
 PFE-Backend/PFE/config.py
 PFE-Backend\PFE\__pycache__
-PFE-Backend\PFE\migrations
 PFE-Backend\Ad\__pycache__
-venv
+PFE-Backend\PFE\migrations\__pycache__
 .vscode
 
