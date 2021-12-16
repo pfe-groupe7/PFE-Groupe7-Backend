@@ -292,6 +292,7 @@ def insertTestData(request):
     adcampLocFurniture = AdsCampusLocation(ad=furniture,campus=louvain,location=BA17)
     adcampLocHarry = AdsCampusLocation(ad=harryPotter,campus=woluwe,location=CH43)
     adcampLocPS4 = AdsCampusLocation(ad=ps4Game,campus=Ixelles,location=LI14)
+    adcampLocCam = AdsCampusLocation(ad=cam,campus=louvain,location=CA1)
     adcampLocParfum = AdsCampusLocation(ad=parfum,campus=woluwe,location=AL)
     adcampLocTV = AdsCampusLocation(ad=TV,campus=woluwe,location=ARC59)
     adcampLocBackpack = AdsCampusLocation(ad=backpack,campus=woluwe,location=CH41)
@@ -317,6 +318,7 @@ def insertTestData(request):
     adcampLocJordan.save()
     adcampLocIphone.save()
     adcampLocBracelet.save()
+    adcampLocCam.save()
      #---------------------------------------------------------------------------------------------------------------------------------#
     
      #---------------------------------------------------------Media--------------------------------------------------------------------#
