@@ -135,7 +135,7 @@ def Hello(request):
 #Insert dummy data
 def insertTestData(request):
 
-    #The campus and the sites
+    #-------------------------------------The campus and the sites--------------------------------------------------#
     Ixelles = Campus(campusName='Ixelles')
     Ixelles.save()
     WA249 = Location(name='Wavre_249', address='Chaussée de Wavre,249', campus = Ixelles )
@@ -175,47 +175,46 @@ def insertTestData(request):
     LO14.save()
     LO1.save()
     UE4.save()
+    #------------------------------------------------------------------------------------------------------------------------------#
 
-
-    #Categories
+    #--------------------------------------------------------Categories--------------------------------------------------------------#
     maisonJardin = Category(categoryName='Maison et Jardin')
-    maisonJardin.save()
+    maisonJardin.save() #1
     outils = Category(categoryName='Outils',parent=maisonJardin)
     meubles = Category(categoryName='Meubles',parent=maisonJardin)
     pourMaison = Category(categoryName='Pour la maison',parent=maisonJardin)
     jardin = Category(categoryName='Jardins',parent=maisonJardin)
     electro = Category(categoryName='Electroménager',parent=maisonJardin)
-    outils.save()
-    meubles.save()
-    meubles.save()
-    pourMaison.save()
-    jardin.save()
-    electro.save()
+    outils.save() #2
+    meubles.save() #3
+    pourMaison.save() #4
+    jardin.save() #5
+    electro.save() #6
 
     famille = Category(categoryName='Famille')
-    famille.save()
+    famille.save() #7
     sante = Category(categoryName='Santé et beauté',parent=famille)
     fournitures = Category(categoryName='Fournitures pour animaux',parent=famille)
     puericulture = Category(categoryName='Puériculture et enfants',parent=famille)
     jeux = Category(categoryName='Jouets et jeux',parent=famille)
-    sante.save()
-    fournitures.save()
-    puericulture.save()
-    jeux.save()
+    sante.save() #8
+    fournitures.save() #9
+    puericulture.save() #10
+    jeux.save() #11
 
     vetement = Category(categoryName='Vêtements et accessoires')
-    vetement.save()
+    vetement.save() #12
     femme = Category(categoryName='Vêtements et chaussures femmes',parent=vetement)
     homme = Category(categoryName='Vêtements et chaussures hommes',parent=vetement)
     bijoux = Category(categoryName='Bijoux et accessoires',parent=vetement)
     sacs = Category(categoryName='Sacs et bagages',parent=vetement)
-    femme.save()
-    homme.save()
-    bijoux.save()
-    sacs.save()
+    femme.save() #13
+    homme.save() #14
+    bijoux.save() #15
+    sacs.save() #16
 
     loisir= Category(categoryName='Loisirs - hobbys')
-    loisir.save()
+    loisir.save() #17
     velo = Category(categoryName = 'Vélo',parent=loisir)
     creatif = Category(categoryName='Loisir créatifs',parent=loisir)
     pieces = Category(categoryName='Piéces auto',parent=loisir)
@@ -224,72 +223,164 @@ def insertTestData(request):
     livres = Category(categoryName='Livres,films et musique',parent=loisir)
     instruments = Category(categoryName='Instruments de musique',parent=loisir)
     antiquite = Category(categoryName='Antiquité et objets de collection',parent=loisir)
-    creatif.save()
-    pieces.save()
-    sports.save()
-    jeuxVideo.save()
-    livres.save()
-    instruments.save()
-    antiquite.save()
+    velo.save() #18
+    creatif.save() #19
+    pieces.save() #20
+    sports.save() #21
+    jeuxVideo.save() #22
+    livres.save() #23
+    instruments.save() #24
+    antiquite.save() #25
 
     Electro = Category(categoryName='Electronique')
-    Electro.save()
+    Electro.save() #26
     ordi=Category(categoryName='Electronique et ordinateurs',parent=Electro)
     tele=Category(categoryName='Téléphones mobiles',parent=Electro)
-    ordi.save()
-    tele.save()
+    ordi.save() #27
+    tele.save() #28
+     #------------------------------------------------------------------------------------------------------------------------------#
 
 
+    #-------------------------------------------------------------Users--------------------------------------------------------------#
+    chihhuai = User(email='chihhuai.lin@student.vinci.be',lastname = 'Lin',firstname ='Chih Huai',campus = louvain, password='123', moderator=False)
+    abdulhmid = User(email='abdulhamid.ali@student.vinci.be',lastname = 'Ali',firstname ='Abdulhamid',campus = Ixelles, password='123', moderator=False)
+    ikram = User(email='ikrambouali24@student.vinci.be',lastname = 'Bouali',firstname ='Ikram',campus = Ixelles, password='123', moderator=False)
+    admin = User(email='admin@vinci.be',lastname = 'admin',firstname ='admin',campus = woluwe, password='admin123', moderator=True)
+    chihhuai.save()   
+    abdulhmid.save()
+    ikram.save()
+    admin.save()
+     #---------------------------------------------------------------------------------------------------------------------------------#
 
-    #Users
-    u1 = User(email='test1@gmail.com',lastname = 'Lin',firstname ='Chih Huai',campus = woluwe, password='123', moderator=True)
-    u2 = User(email='test2@gmail.com',lastname = 'Ali',firstname ='Abdulhamid',campus = woluwe, password='123', moderator=False)
-    u1.save()   
-    u2.save()
-    ad1 = Ad(status = Ad.Status.TOGIVE, title ='T-shirt', description= 'porté une seule fois',price = 0,category=homme, seller = u1)
-    ad2 = Ad(status = Ad.Status.TOSELL, title ='Vélo', description= 'vélo pour adulte rose',price = 55,category=velo, seller = u1)
-    ad3 = Ad(status = Ad.Status.TOSELL, title ='Meuble salon', description= 'armoire de rangement',price = 35,category=meubles, seller = u1)
-    ad4 = Ad(status = Ad.Status.TOGIVE, title ='Harry Potter Tome 4', description= 'harry potter et la coupe de feu',price = 0,category=livres, seller = u2)
-    ad5 = Ad(status = Ad.Status.TOSELL, title ='Jeux ps4', description= 'vend plusieurs jeux ps4',price = 10,category=jeuxVideo, seller = u2)
-    ad6 = Ad(status = Ad.Status.TOSELL, title ='Appareil photo ', description= 'état neuf marque Fujifilm',price = 350,category=creatif, seller = u2)
-    ad1.save() 
-    ad2.save()
-    ad3.save()
-    ad4.save()
-    ad5.save()
-    ad6.save()
-    adcampLoc1 = AdsCampusLocation(ad=ad1,campus=woluwe,location=AL)
-    adcampLoc2 = AdsCampusLocation(ad=ad1,campus=Ixelles,location=WA249)
-    adcampLoc3 = AdsCampusLocation(ad=ad2,campus=louvain,location=BA17)
-    adcampLoc4 = AdsCampusLocation(ad=ad3,campus=woluwe,location=CH43)
-    adcampLoc5 = AdsCampusLocation(ad=ad4,campus=Ixelles,location=LI14)
-    adcampLoc6 = AdsCampusLocation(ad=ad4,campus=louvain,location=CA1)
 
-    adcampLoc1.save()
-    adcampLoc2.save()
-    adcampLoc3.save()
-    adcampLoc4.save()
-    adcampLoc5.save()
-    adcampLoc6.save()
-    
-    me1 = Media(url='https://unsplash.com/photos/-wZtepNJlHg',ad=ad1)
-    me2 = Media(url='https://imgflip.com/i/5wzqrj',ad=ad2)
-    me3 = Media(url='https://unsplash.com/photos/pEHkamqczMU',ad=ad3)
-    me4 = Media(url='https://unsplash.com/photos/JXECZL83E6M',ad=ad4)
-    me5 = Media(url='https://unsplash.com/photos/YRmtGNQGMb8',ad=ad5)
-    me6 = Media(url='https://imageshack.com/i/idggZf2Aj',ad=ad5)
-    me7 = Media(url='https://imageshack.com/i/eyDpYdlqj',ad=ad6)
-    me8 = Media(url='https://imageshack.com/i/idNt07gmj',ad=ad6)
-    me9 = Media(url='https://imageshack.com/i/eykp5s9ej',ad=ad6)
+      #---------------------------------------------------------Advertisements---------------------------------------------------------------#
+    tshirt = Ad(status = Ad.Status.TOGIVE, title ='T-shirt', description= 'porté une seule fois',price = 0,category=homme, seller = chihhuai)
+    bike = Ad(status = Ad.Status.TOSELL, title ='Vélo', description= 'vélo pour adulte rose',price = 55,category=velo, seller = chihhuai)
+    furniture = Ad(status = Ad.Status.TOSELL, title ='Meuble salon', description= 'armoire de rangement',price = 35,category=meubles, seller = chihhuai)
+    harryPotter = Ad(status = Ad.Status.TOGIVE, title ='Harry Potter Tome 4', description= 'harry potter et la coupe de feu',price = 0,category=livres, seller = chihhuai)
+    ps4Game = Ad(status = Ad.Status.TOSELL, title ='Jeux ps4', description= 'vend plusieurs jeux ps4',price = 10,category=jeuxVideo, seller = abdulhmid)
+    cam = Ad(status = Ad.Status.TOSELL, title ='Appareil photo', description= 'état neuf marque Fujifilm',price = 350,category=creatif, seller = abdulhmid)
+    parfum = Ad(status = Ad.Status.TOSELL, title ='Parfum Zara', description= 'Parfum Zara neuf jamais ouvert',price = 5,category=sante, seller = abdulhmid)
+
+    TV = Ad(status = Ad.Status.TOSELL, title ='TV samsumg', description= 'HD 32 pouces, tv noir',price = 55,category=pourMaison, seller = abdulhmid)
+    backpack = Ad(status = Ad.Status.TOSELL, title ='Sac à dos Ralp Lauren', description= 'Sac à dos Ralph Lauren neuf jamais porté offert par ma grand-mère',price = 87,category=sacs, seller = abdulhmid)
+    vase = Ad(status = Ad.Status.TOSELL, title ='Vase chinois', description= 'Vase chinois émaux cloisonnés très joli ',price = 199,category=pourMaison, seller = abdulhmid)
+    highheels = Ad(status = Ad.Status.TOSELL, title ='Talons transparents', description= 'Talons transparents taille 37 jamais portés avec étiquette',price = 45,category=femme, seller = ikram)
+    goldorak = Ad(status = Ad.Status.TOSELL, title ='Goldorak ', description= 'Figurine Goldorak de 60 cm + Figurine mini métal + le nouveau livre .',price = 700,category=jeux, seller = ikram)
+    jordan = Ad(status = Ad.Status.TOSELL, title ='Jordan', description= 'Jordan taille 42 neuves avec étiquette',price = 150,category=vetement, seller = ikram)
+    iphone = Ad(status = Ad.Status.TOSELL, title ='iphone', description= 'iphone 13 pro',price = 300,category=tele, seller = ikram)
+    bracelet = Ad(status = Ad.Status.TOSELL, title ='Bracelet', description= 'Bracelet labradorite et cristal de roche',price = 18,category=bijoux, seller = ikram)
      
-    me1.save()
-    me2.save()
-    me3.save()
-    me4.save()
-    me5.save()
-    me6.save()
-    me7.save()
-    me8.save()
-    me9.save()
+    tshirt.save() 
+    bike.save()
+    furniture.save()
+    harryPotter.save()
+    ps4Game.save()
+    cam.save()
+
+    TV.save()
+    backpack.save()
+    vase.save()
+    highheels.save()
+    goldorak.save()
+    jordan.save()
+    iphone.save()
+    bracelet.save()
+     #----------------------------------------------------------AdsCampusLocation--------------------------------------------------------------#
+    adcampLocTshirt = AdsCampusLocation(ad=tshirt,campus=woluwe,location=AL)
+    adcampLocBike = AdsCampusLocation(ad=bike,campus=Ixelles,location=WA249)
+    adcampLocFurniture = AdsCampusLocation(ad=furniture,campus=louvain,location=BA17)
+    adcampLocHarry = AdsCampusLocation(ad=harryPotter,campus=woluwe,location=CH43)
+    adcampLocPS4 = AdsCampusLocation(ad=ps4Game,campus=Ixelles,location=LI14)
+    adcampLocParfum = AdsCampusLocation(ad=parfum,campus=woluwe,location=AL)
+    adcampLocTV = AdsCampusLocation(ad=TV,campus=woluwe,location=ARC59)
+    adcampLocBackpack = AdsCampusLocation(ad=backpack,campus=woluwe,location=CH41)
+    adcampLocVase = AdsCampusLocation(ad=vase,campus=Ixelles,location=AR)
+    adcampLocHighHeel = AdsCampusLocation(ad=highheels,campus=louvain,location=UE4)
+    adcampLocGoldorak = AdsCampusLocation(ad=goldorak,campus=Ixelles,location=TR84)
+    adcampLocJordan = AdsCampusLocation(ad=jordan,campus=louvain,location=LO14)
+    adcampLocIphone = AdsCampusLocation(ad=iphone,campus=woluwe,location=CH41)
+    adcampLocBracelet = AdsCampusLocation(ad=bracelet,campus=woluwe,location=MO84)
+
+   
+    adcampLocTshirt.save()
+    adcampLocBike.save()
+    adcampLocFurniture.save()
+    adcampLocHarry.save()
+    adcampLocPS4.save()
+    adcampLocTV.save()
+    adcampLocParfum.save()
+    adcampLocBackpack.save()
+    adcampLocVase.save()
+    adcampLocHighHeel.save()
+    adcampLocGoldorak.save()
+    adcampLocJordan.save()
+    adcampLocIphone.save()
+    adcampLocBracelet.save()
+     #---------------------------------------------------------------------------------------------------------------------------------#
+    
+     #---------------------------------------------------------Media--------------------------------------------------------------------#
+    meTshirt = Media(url='https://i.ibb.co/LN5Z7qP/tshirt.jpg',ad=tshirt)
+    meBike = Media(url='https://i.ibb.co/Cs8pwxp/velo.jpg',ad=bike)
+    meFurniture = Media(url='https://i.ibb.co/vq1TK28/meuble.jpg',ad=furniture)
+    meHarry1 = Media(url='https://i.ibb.co/GQnCVBS/fp.png',ad=harryPotter)
+    meHarry2 = Media(url='https://i.ibb.co/vzmWnrj/HP4.jpg',ad=harryPotter)
+
+    mePS41 = Media(url='https://i.ibb.co/VYbHVxB/ps1.jpg',ad=ps4Game)
+    mePS42 = Media(url='https://i.ibb.co/MCqtMXr/ps2.jpg',ad=ps4Game)
+
+    meTV1 = Media(url='https://i.ibb.co/Smn535t/gg.png',ad=TV)
+    meTV2 = Media(url='https://i.ibb.co/LPrq7pv/tv.png',ad=TV)
+    meTV3 = Media(url='https://i.ibb.co/TL57Khf/hh.png',ad=TV)
+
+    meCam1 = Media(url='https://i.ibb.co/r6HnDmh/ca1.jpg',ad=cam)
+    meCam2 = Media(url='https://i.ibb.co/Krbg1Zh/ca2.jpg',ad=cam)
+    meCam3 = Media(url='https://i.ibb.co/BykvBZz/ca3.jpg',ad=cam)
+
+
+    meBackpack = Media(url='https://i.ibb.co/MhNLSp5/1639474071.jpg',ad=backpack)
+
+    meVase1 = Media(url='https://i.ibb.co/zGvFHjz/5555.jpg',ad=vase)
+    meVase2 = Media(url='https://i.ibb.co/0Zf3R6j/16379164555.jpg',ad=vase)
+    meVase3 = Media(url='https://i.ibb.co/jbzRKV0/1637916455.jpg',ad=vase)
+
+    meHighHeel = Media(url='https://i.ibb.co/wc5BTJj/1639557305.jpg',ad=highheels)
+
+    meGoldorak = Media(url='https://i.ibb.co/d2W28Jq/1639507754.jpg',ad=goldorak)
+
+    meJordan1 = Media(url='https://i.ibb.co/w60HWpc/1639425523.jpg',ad=jordan)
+    meJordan2 = Media(url='https://i.ibb.co/k27dXPV/16394255234.jpg',ad=jordan)
+    meJordan3 = Media(url='https://i.ibb.co/m9V9yqP/16394255233.jpg',ad=jordan)
+    meJordan4 = Media(url='https://i.ibb.co/PNSGzKV/16394255231.jpg',ad=jordan)
+
+    meParfum = Media(url='https://i.ibb.co/V3fcsqR/1639580926161.jpg',ad=parfum)
+
+    meIphone =Media(url='https://i.ibb.co/Mck561W/1639498845.jpg',ad=iphone)
+     
+    meTshirt.save()
+    meFurniture.save()
+    meBike.save()
+    meHarry1.save()
+    meHarry2.save()
+    mePS41.save()
+    mePS42.save()
+    meTV1.save()
+    meTV2.save()
+    meTV3.save()
+    meCam1.save()
+    meCam2.save()
+    meCam3.save()
+    meBackpack.save()
+    meVase1.save()
+    meVase2.save()
+    meVase3.save()
+    meHighHeel.save()
+    meGoldorak.save()
+    meParfum.save()
+    meJordan1.save()
+    meJordan2.save()
+    meJordan3.save()
+    meJordan4.save()
+    meIphone.save()
 
     return HttpResponse('Some stuff got added in the db')
